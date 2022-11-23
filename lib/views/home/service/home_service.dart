@@ -44,6 +44,9 @@ Dio dio=Dio(BaseOptions(baseUrl: "https://api.spotify.com/v1/"));
   }
   return null;
 }
+
+
+
  Future<CategoriesModel?>  getCategoriesData () async {
   try {
        final response = await dio.get("browse/categories",queryParameters: {

@@ -41,8 +41,9 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Container newReleaseAlbum() {
-    return Container(
+  Widget newReleaseAlbum() {
+    return Consumer(builder: (context,CategorieViewModel value, child) {
+      return  Container(
           width: 100.w,
           height: 15.h,
               padding: EdgeInsets.all(4.w),
@@ -58,7 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
 
                       Text(
-                      "Happier Than Ever",
+                      "${value.newReleasesAlbum!.albums!.items![0].name}",
                       style: Styles.regularFontStyle(color: AppColors.white),
                     ),
 
@@ -73,7 +74,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
             );
-  }
+
+    },); }
 
   Row appBarSearch() {
     return Row(
