@@ -34,7 +34,6 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(children: [
             appBarSearch(),
             newReleaseAlbum(),
-            
           ]),
         ),
       ),
@@ -42,40 +41,40 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget newReleaseAlbum() {
-    return Consumer(builder: (context,CategorieViewModel value, child) {
-      return  Container(
+    return Consumer(
+      builder: (context, CategorieViewModel value, child) {
+        return Container(
           width: 100.w,
           height: 15.h,
-              padding: EdgeInsets.all(4.w),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(6.w),
-                  color: AppColors.green),
-              child: Row(
-                children: [
-                  Column(mainAxisAlignment: MainAxisAlignment.spaceAround,crossAxisAlignment: CrossAxisAlignment.start,children: [
+          padding: EdgeInsets.all(4.w),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(6.w), color: AppColors.green),
+          child: Row(
+            children: [
+              Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
                     Text(
                       "New Album",
                       style: Styles.regularFontStyle(color: AppColors.white),
                     ),
-
-                      Text(
-                      "${value.newReleasesAlbum!.albums!.items![0].name}",
+                    Text(
+                      "${""}",
                       style: Styles.regularFontStyle(color: AppColors.white),
                     ),
-
-                      Text(
+                    Text(
                       "Billie Eilish",
                       style: Styles.regularFontStyle(color: AppColors.white),
                     ),
-                    
                   ]),
-                 // Image.network(""),
-              
-                ],
-              ),
-            );
-
-    },); }
+              // Image.network(""),
+            ],
+          ),
+        );
+      },
+    );
+  }
 
   Row appBarSearch() {
     return Row(
