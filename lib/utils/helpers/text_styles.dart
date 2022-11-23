@@ -15,7 +15,7 @@ class Styles {
   static TextStyle regularFontStyle(
           {double? fontSize, Color? color, double? height}) =>
       TextStyle(
-        fontSize: fontSize ?? 14,
+        fontSize: fontSize ?? 13,
         color: color ?? AppColors.black,
         fontWeight: FontWeight.w400,
         height: height ?? 1.24,
