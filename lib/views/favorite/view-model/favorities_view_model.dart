@@ -22,7 +22,7 @@ class FavoritiesViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  getArtistAlbum() async {
+  Future<dynamic> getArtistAlbum() async {
     isLoadingArtistAlbum = true;
     artistAlbum = (await FavoriteServices().getArtistAlbumData())!;
     isLoadingArtistAlbum = false;

@@ -21,12 +21,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
     final aa = Provider.of<FavoritiesViewModel>(context, listen: false);
     aa.getArtistTopTrack();
     aa.getArtistAlbum();
-    Future.delayed(
-      Duration(seconds: 5),
-      () {
-        aa.getArtistWithId();
-      },
-    );
+    aa.getArtistWithId();
 
     super.initState();
   }
