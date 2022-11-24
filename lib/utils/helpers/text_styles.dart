@@ -21,7 +21,7 @@ class Styles {
           GoogleFonts.inter(fontSize: fontSize ?? 16.sp,
         color: color ?? AppColors.black,
         fontWeight: FontWeight.w600,
-        letterSpacing: 0.7,
+        letterSpacing: 0.5,
         height: height ?? 1.24,);
 
 
@@ -30,7 +30,7 @@ class Styles {
           {double? fontSize, Color? color, double? height}) =>
           GoogleFonts.inter(fontSize: fontSize ?? 15.sp,
         color: color ?? AppColors.black,
-        letterSpacing: 0.8,
+        letterSpacing: 0.4,
         height: height ?? 1.24,);
 
 

@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:spotify_api/utils/helpers/text_styles.dart';
@@ -39,7 +37,7 @@ class ListCategories extends StatelessWidget {
             width: 25.w,
             child: Text(
               value.newReleasesAlbum!.albums!.items![index].name.toString(),
-              style: Styles.titleStyle(),
+              style: Styles.titleStyle(),maxLines: 2,overflow: TextOverflow.ellipsis,
             ),
           ),
           Container(
@@ -47,7 +45,7 @@ class ListCategories extends StatelessWidget {
             width: 25.w,
             child: Text(
               value.newReleasesAlbum!.albums!.items![index].artists![0].name.toString(),
-              style: Styles.bodyStyle()),
+              style: Styles.bodyStyle(),maxLines: 1,overflow: TextOverflow.ellipsis),
           )
         ],
       );
