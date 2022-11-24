@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:spotify_api/views/favorite/model/artist_top_track.dart';
+import 'package:spotify_api/views/home/model/album_track.dart';
 import 'package:spotify_api/views/home/model/new_releases_album.dart';
 import 'package:spotify_api/views/home/model/several_artist.dart';
 
@@ -9,16 +10,32 @@ class HomeViewModel with ChangeNotifier {
   NewReleasesAlbum? newReleasesAlbum;
   SeveralArtist? severalArtist;
   ArtistTopTracks? artistTopTracks;
+  AlbumTracks? albumTracks;
+
   String? artistId;
+  int? currentIndexTabContainer;
 
   bool isLoadingnNewRelease = true;
   bool isLoadingnSeveralArtist = true;
   bool isLoadingArtistTopTracks = true;
+  bool isLoadingAlbumTracks = true;
+
+  setcurrentIndexTabContainer(int id) {
+    currentIndexTabContainer = id;
+    notifyListeners();
+  }
 
   setArtistId(String id) {
     artistId = id;
     notifyListeners();
     getartistWithId(userId: id);
+  }
+
+  getAlbumTracks() async {
+    isLoadingAlbumTracks = true;
+    albumTracks = (await HomeServices().getAlbumTrackData())!;
+    isLoadingAlbumTracks = false;
+    notifyListeners();
   }
 
   getNewReleaseAlbum() async {

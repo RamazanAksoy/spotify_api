@@ -73,7 +73,9 @@ class _HomeState extends State<Home> {
                         const ArtistList(),
                         Container(color: Colors.green),
                       ],
-                      onChange: (index) => print(index),
+                      onChange: (index) =>
+                          Provider.of<HomeViewModel>(context, listen: false)
+                              .setcurrentIndexTabContainer(index),
                     ),
                   ),
                   Row(

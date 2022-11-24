@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:spotify_api/core/constans/app.dart';
 import 'package:spotify_api/views/favorite/model/artist_top_track.dart';
+import 'package:spotify_api/views/home/model/album_track.dart';
 import 'package:spotify_api/views/home/model/new_releases_album.dart';
 import 'package:spotify_api/views/home/model/several_artist.dart';
 
@@ -20,6 +21,36 @@ class HomeServices {
           options: Options(headers: App.requestHeaders));
       final categoriesList = SeveralArtist.fromJson(response.data);
       return categoriesList;
+    } catch (e) {}
+    return null;
+  }
+
+  Future<AlbumTracks?> getPodcastData() async {
+    var params = {
+      'ids': '77o6BIVlYM3msb4MMIL1jH,0Q86acNRm6V9GYx55SXKwf',
+      'market': 'ES',
+    };
+    try {
+      final response = await dio.get("episodes",
+          queryParameters: params,
+          options: Options(headers: App.requestHeaders));
+      return AlbumTracks.fromJson(response.data);
+    } catch (e) {}
+    return null;
+  }
+
+  Future<AlbumTracks?> getAlbumTrackData({String? albumId}) async {
+    var params = {
+      'market': 'TR',
+      'limit': '10',
+      'offset': '0',
+    };
+    try {
+      final response = await dio.get(
+          "albums/${albumId ?? '151w1FgRZfnKZA9FEcg9Z3'}/tracks",
+          queryParameters: params,
+          options: Options(headers: App.requestHeaders));
+      return AlbumTracks.fromJson(response.data);
     } catch (e) {}
     return null;
   }
