@@ -33,6 +33,12 @@ class Tracks {
   String? id;
   bool? isLocal;
   bool? isPlayable;
+
+  @override
+  String toString() {
+    return 'Tracks{album: $album, artists: $artists, discNumber: $discNumber, durationMs: $durationMs, explicit: $explicit, externalIds: $externalIds, externalUrls: $externalUrls, href: $href, id: $id, isLocal: $isLocal, isPlayable: $isPlayable, name: $name, popularity: $popularity, previewUrl: $previewUrl, trackNumber: $trackNumber, type: $type, uri: $uri}';
+  }
+
   String? name;
   int? popularity;
   String? previewUrl;
@@ -125,6 +131,12 @@ class Album {
   ExternalUrls? externalUrls;
   String? href;
   String? id;
+
+  @override
+  String toString() {
+    return 'Album{albumType: $albumType, artists: $artists, externalUrls: $externalUrls, href: $href, id: $id, images: $images, name: $name, releaseDate: $releaseDate, releaseDatePrecision: $releaseDatePrecision, totalTracks: $totalTracks, type: $type, uri: $uri}';
+  }
+
   List<Images>? images;
   String? name;
   String? releaseDate;
@@ -201,6 +213,12 @@ class Album {
 class Artists {
   ExternalUrls? externalUrls;
   String? href;
+
+  @override
+  String toString() {
+    return 'Artists{externalUrls: $externalUrls, href: $href, id: $id, name: $name, type: $type, uri: $uri}';
+  }
+
   String? id;
   String? name;
   String? type;

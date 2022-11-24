@@ -1,11 +1,43 @@
 import 'package:dio/dio.dart';
 import 'package:spotify_api/core/constans/app.dart';
+import 'package:spotify_api/views/favorite/model/artist_top_track.dart';
 import 'package:spotify_api/views/home/model/new_releases_album.dart';
+import 'package:spotify_api/views/home/model/several_artist.dart';
 
 import '../model/categories.dart';
 
 class HomeServices {
   Dio dio = Dio(BaseOptions(baseUrl: App.baseUrl));
+
+  Future<SeveralArtist?> getSeveralArtistData() async {
+    var params = {
+      'ids':
+          '2CIMQHirSU0MQqyYHq0eOx,57dN52uHvrHOxijzpIgu3E,1vCWHaC5f2uS3yhpwWbIA6',
+    };
+    try {
+      final response = await dio.get("artists",
+          queryParameters: params,
+          options: Options(headers: App.requestHeaders));
+      final categoriesList = SeveralArtist.fromJson(response.data);
+      return categoriesList;
+    } catch (e) {}
+    return null;
+  }
+
+  Future<ArtistTopTracks?> getArtistIdWithData({String? id}) async {
+    var params = {
+      'market': 'ES',
+    };
+    try {
+      final response = await dio.get(
+          "artists/${id ?? '0TnOYISbd1XYRBk9myaseg'}/top-tracks",
+          queryParameters: params,
+          options: Options(headers: App.requestHeaders));
+      final categoriesList = ArtistTopTracks.fromJson(response.data);
+      return categoriesList;
+    } catch (e) {}
+    return null;
+  }
 
   Future<NewReleasesAlbum?> getNewReleaseAlbumData() async {
     var params = {

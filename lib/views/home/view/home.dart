@@ -1,4 +1,3 @@
-
 import 'package:contained_tab_bar_view/contained_tab_bar_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -8,9 +7,9 @@ import 'package:spotify_api/views/home/view-model/home_view_model.dart';
 import 'package:spotify_api/views/home/view/playlist.dart';
 
 import 'appbar.dart';
+import 'artist_list.dart';
 import 'listItems.dart';
 import 'cover_page.dart';
-
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -28,7 +27,8 @@ class _HomeState extends State<Home> {
   ];
   @override
   void initState() {
-    Provider.of<HomeViewModel>(context,listen: false).getNewReleaseAlbum();
+    Provider.of<HomeViewModel>(context, listen: false).getNewReleaseAlbum();
+    Provider.of<HomeViewModel>(context, listen: false).getSeveralArtist();
     super.initState();
   }
 
@@ -58,28 +58,24 @@ class _HomeState extends State<Home> {
                   SizedBox(
                     height: 3.h,
                   ),
-                
-                SizedBox(
-                  height: 42.h,
-                  child: ContainedTabBarView(
-                    tabs: [
-                       Text('News',style: Styles.bodyStyle()),
-                       Text('Video',style: Styles.bodyStyle()),
-                       Text('Artist',style: Styles.bodyStyle()),
-                       Text('Podcast',style: Styles.bodyStyle()),
-                    ],
-                    views: [
-                      ListCategories(),
-                      Container(color: Colors.green),
-                      Container(color: Colors.green),
-                      Container(color: Colors.green),
-                    ],
-                    onChange: (index) => print(index),
+                  SizedBox(
+                    height: 42.h,
+                    child: ContainedTabBarView(
+                      tabs: [
+                        Text('News', style: Styles.bodyStyle()),
+                        Text('Video', style: Styles.bodyStyle()),
+                        Text('Artist', style: Styles.bodyStyle()),
+                        Text('Podcast', style: Styles.bodyStyle()),
+                      ],
+                      views: [
+                        const ListCategories(),
+                        Container(color: Colors.green),
+                        const ArtistList(),
+                        Container(color: Colors.green),
+                      ],
+                      onChange: (index) => print(index),
+                    ),
                   ),
-                ),
-
-                
-               
                   Row(
                     children: [
                       SizedBox(
@@ -99,21 +95,11 @@ class _HomeState extends State<Home> {
                       ),
                     ],
                   ),
-                  SizedBox(
-                      width: 100.w,
-                      height: 32.h,
-                      child: ListView.builder(
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: 4,
-                        itemBuilder: (context, index) {
-                          return const PlayListOnHomePage();
-                        },
-                      )),
+                  const PlayListOnHomePage(),
                 ],
               )),
         ),
       ]),
     );
   }
-
 }

@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:spotify_api/views/home/view-model/home_view_model.dart';
+
+import '../../../utils/extensions/time_converter.dart';
 
 class PlayListOnHomePage extends StatefulWidget {
   const PlayListOnHomePage({super.key});
@@ -11,59 +16,101 @@ class PlayListOnHomePage extends StatefulWidget {
 class _PlayListOnHomePageState extends State<PlayListOnHomePage> {
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        SizedBox(
-          width: 5.w,
-        ),
-        Container(
-          margin: EdgeInsets.only(top: 2.h),
-          width: 10.w,
-          height: 10.w,
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(100.sp),
-              color: Colors.grey.withOpacity(0.3)),
-          child: Icon(
-            Icons.play_arrow_rounded,
-            color: Colors.black.withOpacity(0.6),
-          ),
-        ),
-        SizedBox(
-          width: 5.w,
-        ),
-        Column(
-          children: [
-            Text(
-              "As It Was",
-              style: TextStyle(fontSize: 16.5.sp, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(
-              height: 1.h,
-            ),
-            Text(
-              "Harry Styles",
-              style: TextStyle(
-                  fontSize: 14.sp, color: Colors.black.withOpacity(0.7)),
-            )
-          ],
-        ),
-        SizedBox(
-          width: 29.w,
-        ),
-        Text(
-          "5:33",
-          style: TextStyle(fontSize: 17.sp, fontWeight: FontWeight.w400),
-        ),
-        SizedBox(
-          width: 14.w,
-        ),
-        Icon(
-          Icons.favorite,
-          size: 20.sp,
-          color: Colors.grey.withOpacity(0.8),
-        )
-      ],
+    return Consumer(
+      builder: (context, HomeViewModel value, child) => value
+              .isLoadingArtistTopTracks
+          ? Container()
+          : SizedBox(
+              width: 100.w,
+              height: 32.h,
+              child: ListView.builder(
+                itemCount: value.artistTopTracks!.tracks!.length,
+                itemBuilder: (context, index) {
+                  return Container(
+                    //color: Colors.red,
+                    margin:
+                        EdgeInsets.only(bottom: 2.5.h, left: 3.6.h, right: 5.w),
+                    height: 6.h,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          height: 6.h,
+                          alignment: Alignment.topLeft,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                alignment: Alignment.center,
+                                width: 5.h,
+                                height: 5.h,
+                                decoration: const BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Color(0xffE6E6E6)),
+                                child: Image.asset("assets/play.png"),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(left: 3.w),
+                                child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    SingleChildScrollView(
+                                      scrollDirection: Axis.vertical,
+                                      child: Container(
+                                        width: 30.w,
+                                        height: 2.h,
+                                        child: Text(
+                                            value.artistTopTracks!
+                                                .tracks![index].album!.name
+                                                .toString(),
+                                            style: GoogleFonts.roboto(
+                                                fontWeight: FontWeight.w700,
+                                                fontSize: 16.sp,
+                                                color:
+                                                    const Color(0xff000000))),
+                                      ),
+                                    ),
+                                    Text(
+                                        TimeConverter().artistListToString(value
+                                            .artistTopTracks!
+                                            .tracks![index]
+                                            .album!
+                                            .artists),
+                                        style: GoogleFonts.roboto(
+                                            fontWeight: FontWeight.w400,
+                                            fontSize: 1.3.h,
+                                            color: const Color(0xff000000)))
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          width: 12.h,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                  TimeConverter().milisecontToSecondAndMinute(
+                                      value.artistTopTracks!.tracks![index]
+                                          .durationMs),
+                                  style: GoogleFonts.roboto(
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 1.9.h,
+                                      color: const Color(0xff000000))),
+                              Image.asset("assets/heart.png"),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  );
+                },
+              )),
     );
   }
 }
