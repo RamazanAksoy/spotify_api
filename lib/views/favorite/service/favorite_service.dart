@@ -11,21 +11,15 @@ class FavoriteServices {
   Dio dio = Dio(BaseOptions(baseUrl: App.baseUrl));
 
   Future<ArtistWithId?> getArtistWithIdData({String? artistId}) async {
-    var headers = {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-      'Authorization':
-          'Bearer BQC1LugzZTSbXIa3xXHXm8sXmqlTRVGbUJfDzDhq9NZzbfyiskPUmwACoz40mQ4x5Ku1HMRQTuhskBknOqBn7mXSphxW4chB18T713oIHvXZbUuIOc4us7EG4xXcbI1X7nhvhGa8Gmv7OTyu82WiynOxT2wUfmiJG7JZw4--693R4cyJJtlZq0oXVPcS5HN864r6dnm6LizoqcdmtWfQ4ms1eMTMn9vXARh8r9DhdTEgT30G09rBEd5GAYuKpmdxm-nxIKnyZyehN0sMROlQNBfG0jrR2yDZnAPXjX8w1GEs',
-    };
 
     var params = {
       'ids':
-          '2CIMQHirSU0MQqyYHq0eOx,57dN52uHvrHOxijzpIgu3E,1vCWHaC5f2uS3yhpwWbIA6',
+          artistId??'0TnOYISbd1XYRBk9myaseg',
     };
     var query = params.entries.map((p) => '${p.key}=${p.value}').join('&');
 
     var url = Uri.parse('https://api.spotify.com/v1/artists?$query');
-    var res = await http.get(url, headers: headers);
+    var res = await http.get(url, headers:App.requestHeaders);
     if (res.statusCode != 200)
       throw Exception('http.get error: statusCode= ${res.statusCode}');
     print(res.body);

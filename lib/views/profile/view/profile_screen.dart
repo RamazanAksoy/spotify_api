@@ -41,7 +41,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         takipEdilenSayisi:
                             value.profile!.followers!.total!.toInt(),
                         takipciSayisi: 300)
-                    : const Center(child: CircularProgressIndicator());
+                    :  Container();
               },
             ),
             Padding(
@@ -68,8 +68,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             itemCount: value.userPlayList!.items!.length,
                             itemBuilder: (context, index) {
                               return Playlist(
-                                imagePath:
-                                    '${value.userPlayList!.items![index].images![0].url}',
+                                imagePath: value.userPlayList!.items![index]
+                                            .images!.isEmpty ==
+                                        false
+                                    ? '${value.userPlayList!.items![index].images![0].url}'
+                                    : "https://p1.hiclipart.com/preview/658/470/455/krzp-dock-icons-v-1-2-empty-grey-empty-text-png-clipart.jpg",
                                 songName:
                                     '${value.userPlayList!.items![index].name}',
                                 artistName:
@@ -77,7 +80,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               );
                             },
                           )
-                        : CircularProgressIndicator();
+                        : Container();
                   },
                 ),
               ),

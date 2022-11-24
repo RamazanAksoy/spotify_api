@@ -21,7 +21,7 @@ class ProfileServices {
       'offset': '0',
     };
 
-    var res = await dio.get('users/8kdfzahazbluvjd5tc99367gz/playlists',
+    var res = await dio.get('users/smedjan/playlists',
         queryParameters: params, options: Options(headers: App.requestHeaders));
     if (res.statusCode != 200) {
       throw Exception('http.get error: statusCode= ${res.statusCode}');
