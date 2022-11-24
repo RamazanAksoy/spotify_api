@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../core/constans/colors.dart';
 
@@ -11,6 +13,26 @@ class Styles {
         fontWeight: FontWeight.w300,
         height: height ?? 1.24,
       );
+
+
+
+  static TextStyle titleStyle(
+          {double? fontSize, Color? color, double? height}) =>
+          GoogleFonts.inter(fontSize: fontSize ?? 16.sp,
+        color: color ?? AppColors.black,
+        fontWeight: FontWeight.w600,
+        letterSpacing: 0.7,
+        height: height ?? 1.24,);
+
+
+        
+  static TextStyle bodyStyle(
+          {double? fontSize, Color? color, double? height}) =>
+          GoogleFonts.inter(fontSize: fontSize ?? 15.sp,
+        color: color ?? AppColors.black,
+        letterSpacing: 0.8,
+        height: height ?? 1.24,);
+
 
   static TextStyle regularFontStyle(
           {double? fontSize, Color? color, double? height}) =>

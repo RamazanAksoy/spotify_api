@@ -18,15 +18,15 @@ class TopProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 36.h,
       width: double.infinity,
       child: Card(
-        margin: EdgeInsets.all(0),
+        margin: const EdgeInsets.all(0),
         semanticContainer: true,
         clipBehavior: Clip.antiAliasWithSaveLayer,
         color: Colors.white,
-        shape: RoundedRectangleBorder(
+        shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
               bottomLeft: Radius.circular(60),
               bottomRight: Radius.circular(60)),
@@ -46,8 +46,8 @@ class TopProfile extends StatelessWidget {
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(50),
                         color: Colors.grey.withOpacity(0.2)),
-                    child: Padding(
-                      padding: const EdgeInsets.only(right: 2),
+                    child: const Padding(
+                      padding: EdgeInsets.only(right: 2),
                       child: Icon(
                         Icons.arrow_back_ios_new,
                         size: 15,
@@ -56,9 +56,9 @@ class TopProfile extends StatelessWidget {
                   ),
                   Text(
                     "Profile",
-                    style: Styles.regularFontStyle(),
+                    style: Styles.titleStyle(),
                   ),
-                  Icon(
+                  const Icon(
                     Icons.more_vert_rounded,
                     color: Colors.grey,
                   )
@@ -76,15 +76,15 @@ class TopProfile extends StatelessWidget {
                 height: 1.5.h,
               ),
               Text(
-                "$email",
-                style: Styles.regularFontStyle(),
+                "${email??'xramazanaksoy@gmail.com'}",
+                style: Styles.bodyStyle(),
               ),
               SizedBox(
                 height: 1.h,
               ),
               Text(
                 "$profileName",
-                style: Styles.regularFontStyle(),
+                style: Styles.titleStyle(),
               ),
               SizedBox(
                 height: 2.h,
@@ -96,11 +96,11 @@ class TopProfile extends StatelessWidget {
                     children: [
                       Text(
                         "$takipEdilenSayisi",
-                        style: Styles.regularFontStyle(),
+                        style: Styles.titleStyle(fontSize: 18.sp),
                       ),
                       Text(
                         "Followers",
-                        style: Styles.regularFontStyle(),
+                        style: Styles.bodyStyle(),
                       ),
                     ],
                   ),
@@ -108,11 +108,11 @@ class TopProfile extends StatelessWidget {
                     children: [
                       Text(
                         "$takipciSayisi",
-                        style: Styles.regularFontStyle(),
+                        style: Styles.titleStyle(fontSize: 18.sp),
                       ),
                       Text(
                         "Followers",
-                        style: Styles.regularFontStyle(),
+                        style: Styles.bodyStyle(),
                       ),
                     ],
                   ),

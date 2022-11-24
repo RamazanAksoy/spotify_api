@@ -1,96 +1,119 @@
+
+import 'package:contained_tab_bar_view/contained_tab_bar_view.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bounceable/flutter_bounceable.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:spotify_api/core/constans/colors.dart';
-import 'package:spotify_api/views/home/view-model/categories_view_model.dart';
+import 'package:spotify_api/utils/helpers/text_styles.dart';
+import 'package:spotify_api/views/home/view-model/home_view_model.dart';
+import 'package:spotify_api/views/home/view/playlist.dart';
 
-import '../../../utils/helpers/text_styles.dart';
+import 'appbar.dart';
+import 'listItems.dart';
+import 'cover_page.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+
+class Home extends StatefulWidget {
+  const Home({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<Home> createState() => _HomeState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
-  CategorieViewModel categorieViewModel = CategorieViewModel();
-
+class _HomeState extends State<Home> {
+  List<String> newsVs = [
+    "News",
+    "Video",
+    "Artist",
+    "Podcasts",
+  ];
   @override
   void initState() {
-    categorieViewModel.getNewReleaseAlbum();
-    //Provider.of<CategorieViewModel>(context, listen: false).getCategories();
+    Provider.of<HomeViewModel>(context,listen: false).getNewReleaseAlbum();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.only(top: 3.h, left: 2.w, right: 2.w),
-          child: Column(children: [
-            appBarSearch(),
-            newReleaseAlbum(),
-          ]),
+    return SizedBox(
+      width: 100.w,
+      height: 93.h,
+      child: Column(children: [
+        SizedBox(
+          height: MediaQuery.of(context).padding.top,
         ),
-      ),
-    );
-  }
-
-  Widget newReleaseAlbum() {
-    return Consumer(
-      builder: (context, CategorieViewModel value, child) {
-        return Container(
+        HomePageAppBar(
+            startIcon: const Icon(Icons.search),
+            endIcon: const Icon(Icons.more_vert_outlined)),
+        SizedBox(
           width: 100.w,
-          height: 15.h,
-          padding: EdgeInsets.all(4.w),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(6.w), color: AppColors.green),
-          child: Row(
-            children: [
-              Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "New Album",
-                      style: Styles.regularFontStyle(color: AppColors.white),
-                    ),
-                    Text(
-                      "${""}",
-                      style: Styles.regularFontStyle(color: AppColors.white),
-                    ),
-                    Text(
-                      "Billie Eilish",
-                      style: Styles.regularFontStyle(color: AppColors.white),
-                    ),
-                  ]),
-              // Image.network(""),
-            ],
-          ),
-        );
-      },
+          height: 82.8.h,
+          child: SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 3.h,
+                  ),
+                  const CoverPage(),
+                  SizedBox(
+                    height: 3.h,
+                  ),
+                
+                SizedBox(
+                  height: 42.h,
+                  child: ContainedTabBarView(
+                    tabs: [
+                       Text('News',style: Styles.bodyStyle()),
+                       Text('Video',style: Styles.bodyStyle()),
+                       Text('Artist',style: Styles.bodyStyle()),
+                       Text('Podcast',style: Styles.bodyStyle()),
+                    ],
+                    views: [
+                      ListCategories(),
+                      Container(color: Colors.green),
+                      Container(color: Colors.green),
+                      Container(color: Colors.green),
+                    ],
+                    onChange: (index) => print(index),
+                  ),
+                ),
+
+                
+               
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: 5.w,
+                      ),
+                      Text(
+                        "Playlist",
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 18.sp,
+                            fontWeight: FontWeight.w500),
+                      ),
+                      const Spacer(),
+                      const Text(
+                        "See more",
+                        style: TextStyle(color: Colors.grey),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                      width: 100.w,
+                      height: 32.h,
+                      child: ListView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: 4,
+                        itemBuilder: (context, index) {
+                          return const PlayListOnHomePage();
+                        },
+                      )),
+                ],
+              )),
+        ),
+      ]),
     );
   }
 
-  Row appBarSearch() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.search, color: AppColors.iconColor)),
-        const Expanded(child: TextField()),
-        IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.more_vert_outlined,
-              color: AppColors.iconColor,
-            ))
-      ],
-    );
-  }
 }

@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:spotify_api/views/favorite/view-model/favorities_view_model.dart';
 import 'package:spotify_api/views/favorite/view/favorite.dart';
-import 'package:spotify_api/views/home/view-model/categories_view_model.dart';
+import 'package:spotify_api/views/home/view-model/home_view_model.dart';
 import 'package:spotify_api/views/home/view/home.dart';
 import 'package:spotify_api/views/profile/view-model/profile_view_model.dart';
 import 'package:spotify_api/views/profile/view/profile_screen.dart';
@@ -13,8 +13,8 @@ import 'package:spotify_api/views/widgets/bottom_viewModel.dart';
 void main() {
   runApp(MultiProvider(
     providers: [
-      ChangeNotifierProvider<CategorieViewModel>(
-          create: (_) => CategorieViewModel()),
+      ChangeNotifierProvider<HomeViewModel>(
+          create: (_) => HomeViewModel()),
       ChangeNotifierProvider<ProfileViewModel>(
           create: (_) => ProfileViewModel()),
       ChangeNotifierProvider<BottomViewModel>(create: (_) => BottomViewModel()),
@@ -50,7 +50,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   List<Widget> widgetList = [
-    const HomeScreen(),
+    const Home(),
     const ProfileScreen(),
     const FavoriteScreen(),
     const ProfileScreen()

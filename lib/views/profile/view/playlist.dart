@@ -6,11 +6,13 @@ class Playlist extends StatelessWidget {
   final String imagePath;
   final String songName;
   final String artistName;
+  final String trackTotal;
+
   const Playlist(
       {super.key,
       required this.imagePath,
       required this.songName,
-      required this.artistName});
+      required this.artistName, required this.trackTotal});
 
   @override
   Widget build(BuildContext context) {
@@ -29,29 +31,34 @@ class Playlist extends StatelessWidget {
             ),
             SizedBox(
               height: 8.h,
-              width: 55.w,
+              width: 45.w,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
                     songName.toString(),
-                    style: Styles.mediumFontStyle(),
+                    style: Styles.titleStyle(),
                   ),
                   SizedBox(
                     height: 0.5.h,
                   ),
                   Text(
                     artistName.toString(),
-                    style: Styles.mediumFontStyle(),
+                    style: Styles.bodyStyle(),
                   )
                 ],
               ),
             ),
-            Icon(
+            Row(children: [
+              Text(trackTotal.toString(),style: Styles.bodyStyle(),),
+              SizedBox(width: 8.w,),
+  Icon(
               Icons.more_horiz_rounded,
               color: Colors.grey.shade400,
             ),
+            ],)
+          
           ],
         ),
       ),

@@ -10,7 +10,7 @@ class HomeServices {
   Future<NewReleasesAlbum?> getNewReleaseAlbumData() async {
     var params = {
       'country': 'TR',
-      'limit': '1',
+      'limit': '20',
       'offset': '0',
     };
     try {
@@ -18,7 +18,6 @@ class HomeServices {
           queryParameters: params,
           options: Options(headers: App.requestHeaders));
       final categoriesList = NewReleasesAlbum.fromJson(response.data);
-      print(categoriesList.toString());
       return categoriesList;
     } catch (e) {}
     return null;
