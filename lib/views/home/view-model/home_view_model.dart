@@ -52,6 +52,7 @@ class HomeViewModel with ChangeNotifier {
     isLoadingnNewRelease = true;
     newReleasesAlbum = (await HomeServices().getNewReleaseAlbumData())!;
     isLoadingnNewRelease = false;
+   getartistWithId(userId: newReleasesAlbum!.albums!.items![0].artists![0].id);
     notifyListeners();
   }
 
