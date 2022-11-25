@@ -60,20 +60,19 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                           fontWeight: FontWeight.w700,
                           fontSize: 16,
                           color: const Color(0xff222222)))),
-              Container(
-                child: Text("See more",
-                    style: GoogleFonts.roboto(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 11,
-                        color: const Color(0xff131313))),
-              ),
+              Text("See more",
+                  style: GoogleFonts.roboto(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 11,
+                      color: const Color(0xff131313))),
             ],
           ),
         ),
-        Container(
+        SizedBox(
           width: 370,
-          height: 190,
           child: ListView.builder(
+            physics: const NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
             itemCount: value.artistTopTracks!.tracks!.length,
             itemBuilder: (context, index) {
               return Container(
@@ -84,7 +83,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Container(
+                    SizedBox(
                       width: 21.h,
                       height: 6.h,
                       child: Row(
@@ -104,7 +103,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               SingleChildScrollView(
-                                child: Container(
+                                child: SizedBox(
                                   width: 30.w,
                                   height: 2.h,
                                   child: Text(value.artistTopTracks!.tracks![index].album!.name.toString(),
@@ -124,7 +123,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                         ],
                       ),
                     ),
-                    Container(
+                    SizedBox(
                       width: 12.h,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -260,7 +259,7 @@ Consumer(builder: (context,FavoritiesViewModel value, child) =>
         Positioned(
           top: 40,
           left: 25,
-          child: Container(
+          child: SizedBox(
             width: 350,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

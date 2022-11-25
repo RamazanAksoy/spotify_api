@@ -46,7 +46,6 @@ class ArtistList extends StatelessWidget {
                               ),
                             ),
                            
-                           
                             Bounceable(onTap: () {
                               Navigator.push(context, MaterialPageRoute(builder: (context) => FavoriteScreen(id: value
                               .severalArtist!.artists![index].id),));

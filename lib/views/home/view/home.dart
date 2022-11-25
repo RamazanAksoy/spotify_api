@@ -2,6 +2,8 @@ import 'package:contained_tab_bar_view/contained_tab_bar_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:spotify_api/core/constans/app.dart';
+import 'package:spotify_api/core/constans/colors.dart';
 import 'package:spotify_api/utils/helpers/text_styles.dart';
 import 'package:spotify_api/views/home/view-model/home_view_model.dart';
 import 'package:spotify_api/views/home/view/playlist.dart';
@@ -58,6 +60,7 @@ class _HomeState extends State<Home> {
                   SizedBox(
                     height: 40.h,
                     child: ContainedTabBarView(
+                      tabBarProperties:  TabBarProperties(indicatorColor: AppColors.green,indicatorPadding:  EdgeInsets.all(2.w)),
                       tabs: [
                         Text('News', style: Styles.bodyStyle()),
                         Text('Video', style: Styles.bodyStyle()),

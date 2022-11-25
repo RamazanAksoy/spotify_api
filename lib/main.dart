@@ -7,6 +7,8 @@ import 'package:spotify_api/views/home/view-model/home_view_model.dart';
 import 'package:spotify_api/views/home/view/home.dart';
 import 'package:spotify_api/views/profile/view-model/profile_view_model.dart';
 import 'package:spotify_api/views/profile/view/profile_screen.dart';
+import 'package:spotify_api/views/search/model-view/search_model_view.dart';
+import 'package:spotify_api/views/search/view/search_screen.dart';
 import 'package:spotify_api/views/widgets/bottom_navigation.dart';
 import 'package:spotify_api/views/widgets/bottom_viewModel.dart';
 
@@ -19,7 +21,9 @@ void main() {
           create: (_) => ProfileViewModel()),
       ChangeNotifierProvider<BottomViewModel>(create: (_) => BottomViewModel()),
       ChangeNotifierProvider<FavoritiesViewModel>(
-          create: (_) => FavoritiesViewModel())
+          create: (_) => FavoritiesViewModel()),
+                ChangeNotifierProvider<SearchViewModel>(
+          create: (_) => SearchViewModel())
     ],
     builder: (context, child) => const MyApp(),
   ));
@@ -51,7 +55,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   List<Widget> widgetList = [
     const Home(),
-    const ProfileScreen(),
+    const SearchScreen(),
     const FavoriteScreen(),
     const ProfileScreen()
   ];

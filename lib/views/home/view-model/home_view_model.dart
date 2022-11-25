@@ -23,7 +23,8 @@ class HomeViewModel with ChangeNotifier {
   bool isLoadingAlbumTracks = true;
   bool isLoadingPodcast = true;
 
-  setcurrentIndexTabContainer(int id) {
+  setcurrentIndexTabContainer(int id) 
+  {
     currentIndexTabContainer = id;
     notifyListeners();
   }

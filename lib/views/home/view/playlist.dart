@@ -22,8 +22,9 @@ class _PlayListOnHomePageState extends State<PlayListOnHomePage> {
           ? Container()
           : SizedBox(
               width: 100.w,
-              height: 32.h,
               child: ListView.builder(
+                physics: NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
                 itemCount: value.artistTopTracks!.tracks!.length,
                 itemBuilder: (context, index) {
                   return Container(
