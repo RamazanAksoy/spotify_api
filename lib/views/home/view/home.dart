@@ -5,10 +5,11 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:spotify_api/utils/helpers/text_styles.dart';
 import 'package:spotify_api/views/home/view-model/home_view_model.dart';
 import 'package:spotify_api/views/home/view/playlist.dart';
+import 'package:spotify_api/views/home/view/podcastlist.dart';
 
 import 'appbar.dart';
 import 'artist_list.dart';
-import 'listItems.dart';
+import 'newlist.dart';
 import 'cover_page.dart';
 
 class Home extends StatefulWidget {
@@ -19,16 +20,12 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  List<String> newsVs = [
-    "News",
-    "Video",
-    "Artist",
-    "Podcasts",
-  ];
+
   @override
   void initState() {
     Provider.of<HomeViewModel>(context, listen: false).getNewReleaseAlbum();
     Provider.of<HomeViewModel>(context, listen: false).getSeveralArtist();
+    Provider.of<HomeViewModel>(context, listen: false).getPodcast();
     super.initState();
   }
 
@@ -59,7 +56,7 @@ class _HomeState extends State<Home> {
                     height: 3.h,
                   ),
                   SizedBox(
-                    height: 42.h,
+                    height: 40.h,
                     child: ContainedTabBarView(
                       tabs: [
                         Text('News', style: Styles.bodyStyle()),
@@ -67,35 +64,32 @@ class _HomeState extends State<Home> {
                         Text('Artist', style: Styles.bodyStyle()),
                         Text('Podcast', style: Styles.bodyStyle()),
                       ],
-                      views: [
-                        const ListCategories(),
-                        Container(color: Colors.green),
-                        const ArtistList(),
-                        Container(color: Colors.green),
+                      views:const [
+                         NewList(),
+                        ArtistList(),
+                         ArtistList(),
+                         PodcastList(),
                       ],
                       onChange: (index) =>
                           Provider.of<HomeViewModel>(context, listen: false)
                               .setcurrentIndexTabContainer(index),
                     ),
                   ),
-                  Row(
-                    children: [
-                      SizedBox(
-                        width: 5.w,
-                      ),
-                      Text(
-                        "Playlist",
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 18.sp,
-                            fontWeight: FontWeight.w500),
-                      ),
-                      const Spacer(),
-                      const Text(
-                        "See more",
-                        style: TextStyle(color: Colors.grey),
-                      ),
-                    ],
+                  Padding(
+                    padding:  EdgeInsets.symmetric(horizontal: 4.w),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Playlist",
+                          style: Styles.titleStyle(),
+                        ),
+                         Text(
+                          "See more",
+                          style: Styles.bodyStyle(),
+                        ),
+                      ],
+                    ),
                   ),
                   const PlayListOnHomePage(),
                 ],

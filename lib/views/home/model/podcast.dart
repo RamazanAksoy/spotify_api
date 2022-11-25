@@ -1,9 +1,9 @@
-class Podcast {
+class PodcastModel {
   List<Episodes>? episodes;
 
-  Podcast({this.episodes});
+  PodcastModel({this.episodes});
 
-  Podcast.fromJson(Map<String, dynamic> json) {
+  PodcastModel.fromJson(Map<String, dynamic> json) {
     if (json['episodes'] != null) {
       episodes = <Episodes>[];
       json['episodes'].forEach((v) {
@@ -38,7 +38,6 @@ class Episodes {
   String? name;
   String? releaseDate;
   String? releaseDatePrecision;
-  ResumePoint? resumePoint;
   Show? show;
   String? type;
   String? uri;
@@ -60,7 +59,6 @@ class Episodes {
       this.name,
       this.releaseDate,
       this.releaseDatePrecision,
-      this.resumePoint,
       this.show,
       this.type,
       this.uri});
@@ -89,9 +87,6 @@ class Episodes {
     name = json['name'];
     releaseDate = json['release_date'];
     releaseDatePrecision = json['release_date_precision'];
-    resumePoint = json['resume_point'] != null
-        ? new ResumePoint.fromJson(json['resume_point'])
-        : null;
     show = json['show'] != null ? new Show.fromJson(json['show']) : null;
     type = json['type'];
     uri = json['uri'];
@@ -119,9 +114,6 @@ class Episodes {
     data['name'] = this.name;
     data['release_date'] = this.releaseDate;
     data['release_date_precision'] = this.releaseDatePrecision;
-    if (this.resumePoint != null) {
-      data['resume_point'] = this.resumePoint!.toJson();
-    }
     if (this.show != null) {
       data['show'] = this.show!.toJson();
     }
@@ -169,28 +161,8 @@ class Images {
   }
 }
 
-class ResumePoint {
-  bool? fullyPlayed;
-  int? resumePositionMs;
-
-  ResumePoint({this.fullyPlayed, this.resumePositionMs});
-
-  ResumePoint.fromJson(Map<String, dynamic> json) {
-    fullyPlayed = json['fully_played'];
-    resumePositionMs = json['resume_position_ms'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['fully_played'] = this.fullyPlayed;
-    data['resume_position_ms'] = this.resumePositionMs;
-    return data;
-  }
-}
-
 class Show {
   List<String>? availableMarkets;
-  List<Null>? copyrights;
   String? description;
   bool? explicit;
   ExternalUrls? externalUrls;
@@ -209,7 +181,6 @@ class Show {
 
   Show(
       {this.availableMarkets,
-      this.copyrights,
       this.description,
       this.explicit,
       this.externalUrls,
@@ -229,9 +200,7 @@ class Show {
   Show.fromJson(Map<String, dynamic> json) {
     availableMarkets = json['available_markets'].cast<String>();
     if (json['copyrights'] != null) {
-      copyrights = <Null>[];
       json['copyrights'].forEach((v) {
-        copyrights!.add(new Null.fromJson(v));
       });
     }
     description = json['description'];
@@ -261,9 +230,6 @@ class Show {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['available_markets'] = this.availableMarkets;
-    if (this.copyrights != null) {
-      data['copyrights'] = this.copyrights!.map((v) => v.toJson()).toList();
-    }
     data['description'] = this.description;
     data['explicit'] = this.explicit;
     if (this.externalUrls != null) {

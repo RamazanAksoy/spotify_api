@@ -15,25 +15,25 @@ class FavoritiesViewModel with ChangeNotifier {
   bool isLoadingArtistAlbum = true;
   bool isLoadingArtistTopTrack = true;
 
-  getArtistWithId() async {
+  getArtistWithId({String ?artistId}) async {
     isLoadingArtistWithId = true;
-    artistWithId = (await FavoriteServices().getArtistWithIdData())!;
+    artistWithId = (await FavoriteServices().getArtistWithIdData(artistId: artistId))!;
     isLoadingArtistWithId = false;
     notifyListeners();
   }
 
-  Future<dynamic> getArtistAlbum() async {
+  Future<dynamic> getArtistAlbum({String ?artistId}) async {
     isLoadingArtistAlbum = true;
-    artistAlbum = (await FavoriteServices().getArtistAlbumData())!;
+    artistAlbum = (await FavoriteServices().getArtistAlbumData(artistId: artistId))!;
     isLoadingArtistAlbum = false;
     print(artistAlbum);
 
     notifyListeners();
   }
 
-  getArtistTopTrack() async {
+  getArtistTopTrack({String ?artistId}) async {
     isLoadingArtistTopTrack = true;
-    artistTopTracks = (await FavoriteServices().getArtistTopTrackData())!;
+    artistTopTracks = (await FavoriteServices().getArtistTopTrackData(artistId: artistId))!;
     isLoadingArtistTopTrack = false;
     notifyListeners();
   }

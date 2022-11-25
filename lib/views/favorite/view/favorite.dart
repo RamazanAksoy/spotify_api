@@ -3,13 +3,12 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:spotify_api/utils/extensions/time_converter.dart';
-import 'package:spotify_api/views/favorite/service/favorite_service.dart';
 import 'package:spotify_api/views/favorite/view-model/favorities_view_model.dart';
 
-import '../../widgets/bottom_navigation.dart';
 
 class FavoriteScreen extends StatefulWidget {
-  const FavoriteScreen({super.key});
+  const FavoriteScreen({super.key, this.id});
+  final String ?id;
 
   @override
   State<FavoriteScreen> createState() => _FavoriteScreenState();
@@ -20,9 +19,9 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
   void initState() {
     // TODO: implement initState
     final aa = Provider.of<FavoritiesViewModel>(context, listen: false);
-    aa.getArtistTopTrack();
-    aa.getArtistAlbum();
-    aa.getArtistWithId();
+    aa.getArtistTopTrack(artistId: widget.id);
+    aa.getArtistAlbum(artistId: widget.id);
+    aa.getArtistWithId(artistId: widget.id);
     super.initState();
   }
 
