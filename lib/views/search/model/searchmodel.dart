@@ -216,9 +216,9 @@ class Tracks {
 
   Tracks.fromJson(Map<String, dynamic> json) {
     href = json['href'];
-    if (json['items2'] != null) {
+    if (json['items'] != null) {
       items2 = <Items2>[];
-      json['items2'].forEach((v) {
+      json['items'].forEach((v) {
         items2!.add(new Items2.fromJson(v));
       });
     }
@@ -233,7 +233,7 @@ class Tracks {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['href'] = this.href;
     if (this.items2 != null) {
-      data['items2'] = this.items2!.map((v) => v.toJson()).toList();
+      data['items'] = this.items2!.map((v) => v.toJson()).toList();
     }
     data['limit'] = this.limit;
     data['next'] = this.next;

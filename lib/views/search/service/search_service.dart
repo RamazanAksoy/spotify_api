@@ -22,6 +22,7 @@ class SearchService
           queryParameters: params,
           options: Options(headers: App.requestHeaders));
       final categoriesList = SearchModel.fromJson(response.data);
+      print(categoriesList.tracks!.items2.toString());
       return categoriesList;
     } catch (e) {}
     return null;

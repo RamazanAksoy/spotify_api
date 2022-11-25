@@ -20,31 +20,34 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget build(BuildContext context) {
     var padding = MediaQuery.of(context).padding;
 
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 5.w),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const SizedBox(
-            height: 15,
-          ),
-          appbarWidget(padding),
-          const SizedBox(
-            height: 15,
-          ),
-          searchTextField(),
-          const SizedBox(
-            height: 10,
-          ),
-          Text("Artists",
-              style: Styles.titleStyle(fontSize: 17.sp, color: Colors.black87)),
-          searchArtisList()
-
-,/*
-             Text("Songs",
-              style: Styles.titleStyle(fontSize: 17.sp, color: Colors.black87)),
-          searchSongList()*/
-        ],
+    return SingleChildScrollView(
+      physics: BouncingScrollPhysics(),
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 5.w),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(
+              height: 15,
+            ),
+            appbarWidget(padding),
+            const SizedBox(
+              height: 15,
+            ),
+            searchTextField(),
+            const SizedBox(
+              height: 10,
+            ),
+            Text("Artists",
+                style: Styles.titleStyle(fontSize: 17.sp, color: Colors.black87)),
+            searchArtisList()
+    
+    ,
+               Text("Songs",
+                style: Styles.titleStyle(fontSize: 17.sp, color: Colors.black87)),
+            searchSongList()
+          ],
+        ),
       ),
     );
   }
@@ -56,6 +59,8 @@ class _SearchScreenState extends State<SearchScreen> {
           : SizedBox(
               width: 100.w,
               child: ListView.builder(
+                                physics: NeverScrollableScrollPhysics(),
+
                 padding: EdgeInsets.only(top: 1.h),
                 itemCount: value.searchModel!.tracks!.items2!.length,
                 shrinkWrap: true,
@@ -78,8 +83,7 @@ class _SearchScreenState extends State<SearchScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Row(
-                            children: [
-                          
+                            children: [         
                               Text(
                                 value.searchModel!.tracks!.items2![index].name
                                     .toString(),
@@ -103,6 +107,7 @@ class _SearchScreenState extends State<SearchScreen> {
           : SizedBox(
               width: 100.w,
               child: ListView.builder(
+                physics: NeverScrollableScrollPhysics(),
                 padding: EdgeInsets.only(top: 1.h),
                 itemCount: value.searchModel!.artists!.items!.length,
                 shrinkWrap: true,
