@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:spotify_api/core/constans/colors.dart';
 import 'package:spotify_api/views/home/view-model/home_view_model.dart';
 
 import '../../../utils/extensions/time_converter.dart';
@@ -19,7 +20,12 @@ class _PlayListOnHomePageState extends State<PlayListOnHomePage> {
     return Consumer(
       builder: (context, HomeViewModel value, child) => value
               .isLoadingArtistTopTracks
-          ? Container()
+          ? Container(
+              width: 100.w,
+              height: 20.h,
+              alignment: Alignment.center,
+              child: CircularProgressIndicator(color: AppColors.green),
+            )
           : SizedBox(
               width: 100.w,
               child: ListView.builder(

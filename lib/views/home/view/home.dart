@@ -37,17 +37,16 @@ class _HomeState extends State<Home> {
     return SizedBox(
         width: 100.w,
         height: 93.h,
-
-        child: Consumer(builder: (context,HomeViewModel value, child) {
-          print("ramo");
-        return  BaseLoadingShimmer(loadingWidget:loadingWidget() , currentWidget: currentWidget(value), isLoading: value.checkLoading);}
-
-        ));
+        child: Consumer(builder: (context, HomeViewModel value, child) {
+          return BaseLoadingShimmer(
+              loadingWidget: loadingWidget(),
+              currentWidget: currentWidget(value),
+              isLoading: value.checkLoading);
+        }));
   }
 
-
-  Widget loadingWidget(){
-    return        Column(children: [
+  Widget loadingWidget() {
+    return Column(children: [
       SizedBox(
         height: MediaQuery.of(context).padding.top,
       ),
@@ -87,7 +86,7 @@ class _HomeState extends State<Home> {
                       Text('Artist', style: Styles.bodyStyle()),
                       Text('Podcast', style: Styles.bodyStyle()),
                     ],
-                    views:  [
+                    views: [
                       Container(
                           margin: EdgeInsets.only(top: 1.h),
                           width: 100.w,
@@ -96,41 +95,90 @@ class _HomeState extends State<Home> {
                               itemCount: 4,
                               scrollDirection: Axis.horizontal,
                               itemBuilder: (context, index) {
-                                return  Column(
+                                return Column(
                                   children: [
-
-                                      Column(children: [  Container(
-                                        margin: EdgeInsets.only(left: 5.w),
-                                        width: 33.w,
-                                        height: 20.h,
-                                        decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(22.sp),
+                                    Column(
+                                      children: [
+                                        Container(
+                                          margin: EdgeInsets.only(left: 5.w),
+                                          width: 33.w,
+                                          height: 20.h,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(22.sp),
                                             color: Colors.grey,
                                           ),
-                                      ),
-
-
+                                        ),
                                         Container(
-                                          margin: EdgeInsets.only(left: 5.w, top: 2.h),
+                                          margin: EdgeInsets.only(
+                                              left: 5.w, top: 2.h),
                                           width: 25.w,
                                           decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(22.sp),
+                                            borderRadius:
+                                                BorderRadius.circular(22.sp),
                                             color: Colors.grey,
                                           ),
                                         ),
-                                      ],),
-
-
-                                  Container(
-                                          margin: EdgeInsets.only(left: 5.w, top: 1.h),
+                                      ],
+                                    ),
+                                    Container(
+                                      margin:
+                                          EdgeInsets.only(left: 5.w, top: 1.h),
+                                      width: 25.w,
+                                      decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(22.sp),
+                                        color: Colors.grey,
+                                      ),
+                                    )
+                                  ],
+                                );
+                              })),
+                      Container(
+                          margin: EdgeInsets.only(top: 1.h),
+                          width: 100.w,
+                          child: ListView.builder(
+                              physics: const BouncingScrollPhysics(),
+                              itemCount: 4,
+                              scrollDirection: Axis.horizontal,
+                              itemBuilder: (context, index) {
+                                return Column(
+                                  children: [
+                                    Column(
+                                      children: [
+                                        Container(
+                                          margin: EdgeInsets.only(left: 5.w),
+                                          width: 33.w,
+                                          height: 20.h,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(22.sp),
+                                            color: Colors.grey,
+                                          ),
+                                        ),
+                                        Container(
+                                          margin: EdgeInsets.only(
+                                              left: 5.w, top: 2.h),
                                           width: 25.w,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(22.sp),
-                                      color: Colors.grey,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(22.sp),
+                                            color: Colors.grey,
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                        )
+                                    Container(
+                                      margin:
+                                          EdgeInsets.only(left: 5.w, top: 1.h),
+                                      width: 25.w,
+                                      decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(22.sp),
+                                        color: Colors.grey,
+                                      ),
+                                    )
                                   ],
-
                                 );
                               })),
                       Container(
@@ -141,41 +189,43 @@ class _HomeState extends State<Home> {
                               itemCount: 4,
                               scrollDirection: Axis.horizontal,
                               itemBuilder: (context, index) {
-                                return  Column(
+                                return Column(
                                   children: [
-
-                                    Column(children: [  Container(
-                                      margin: EdgeInsets.only(left: 5.w),
-                                      width: 33.w,
-                                      height: 20.h,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(22.sp),
-                                        color: Colors.grey,
-                                      ),
-                                    ),
-
-
-                                      Container(
-                                        margin: EdgeInsets.only(left: 5.w, top: 2.h),
-                                        width: 25.w,
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(22.sp),
-                                          color: Colors.grey,
+                                    Column(
+                                      children: [
+                                        Container(
+                                          margin: EdgeInsets.only(left: 5.w),
+                                          width: 33.w,
+                                          height: 20.h,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(22.sp),
+                                            color: Colors.grey,
+                                          ),
                                         ),
-                                      ),
-                                    ],),
-
-
+                                        Container(
+                                          margin: EdgeInsets.only(
+                                              left: 5.w, top: 2.h),
+                                          width: 25.w,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(22.sp),
+                                            color: Colors.grey,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                     Container(
-                                      margin: EdgeInsets.only(left: 5.w, top: 1.h),
+                                      margin:
+                                          EdgeInsets.only(left: 5.w, top: 1.h),
                                       width: 25.w,
                                       decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(22.sp),
+                                        borderRadius:
+                                            BorderRadius.circular(22.sp),
                                         color: Colors.grey,
                                       ),
                                     )
                                   ],
-
                                 );
                               })),
                       Container(
@@ -186,86 +236,43 @@ class _HomeState extends State<Home> {
                               itemCount: 4,
                               scrollDirection: Axis.horizontal,
                               itemBuilder: (context, index) {
-                                return  Column(
+                                return Column(
                                   children: [
-
-                                    Column(children: [  Container(
-                                      margin: EdgeInsets.only(left: 5.w),
-                                      width: 33.w,
-                                      height: 20.h,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(22.sp),
-                                        color: Colors.grey,
-                                      ),
-                                    ),
-
-
-                                      Container(
-                                        margin: EdgeInsets.only(left: 5.w, top: 2.h),
-                                        width: 25.w,
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(22.sp),
-                                          color: Colors.grey,
+                                    Column(
+                                      children: [
+                                        Container(
+                                          margin: EdgeInsets.only(left: 5.w),
+                                          width: 33.w,
+                                          height: 20.h,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(22.sp),
+                                            color: Colors.grey,
+                                          ),
                                         ),
-                                      ),
-                                    ],),
-
-
+                                        Container(
+                                          margin: EdgeInsets.only(
+                                              left: 5.w, top: 2.h),
+                                          width: 25.w,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(22.sp),
+                                            color: Colors.grey,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                     Container(
-                                      margin: EdgeInsets.only(left: 5.w, top: 1.h),
+                                      margin:
+                                          EdgeInsets.only(left: 5.w, top: 1.h),
                                       width: 25.w,
                                       decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(22.sp),
+                                        borderRadius:
+                                            BorderRadius.circular(22.sp),
                                         color: Colors.grey,
                                       ),
                                     )
                                   ],
-
-                                );
-                              })),
-                      Container(
-                          margin: EdgeInsets.only(top: 1.h),
-                          width: 100.w,
-                          child: ListView.builder(
-                              physics: const BouncingScrollPhysics(),
-                              itemCount: 4,
-                              scrollDirection: Axis.horizontal,
-                              itemBuilder: (context, index) {
-                                return  Column(
-                                  children: [
-
-                                    Column(children: [  Container(
-                                      margin: EdgeInsets.only(left: 5.w),
-                                      width: 33.w,
-                                      height: 20.h,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(22.sp),
-                                        color: Colors.grey,
-                                      ),
-                                    ),
-
-
-                                      Container(
-                                        margin: EdgeInsets.only(left: 5.w, top: 2.h),
-                                        width: 25.w,
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(22.sp),
-                                          color: Colors.grey,
-                                        ),
-                                      ),
-                                    ],),
-
-
-                                    Container(
-                                      margin: EdgeInsets.only(left: 5.w, top: 1.h),
-                                      width: 25.w,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(22.sp),
-                                        color: Colors.grey,
-                                      ),
-                                    )
-                                  ],
-
                                 );
                               })),
                     ],
@@ -301,8 +308,8 @@ class _HomeState extends State<Home> {
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(4.w),
                               color: Colors.grey),
-                          margin:
-                          EdgeInsets.only(bottom: 2.5.h, left:2.h, right: 2.w),
+                          margin: EdgeInsets.only(
+                              bottom: 2.5.h, left: 2.h, right: 2.w),
                           height: 6.h,
                         );
                       },
@@ -313,8 +320,8 @@ class _HomeState extends State<Home> {
     ]);
   }
 
-  Widget currentWidget(HomeViewModel value){
-    return        Column(children: [
+  Widget currentWidget(HomeViewModel value) {
+    return Column(children: [
       SizedBox(
         height: MediaQuery.of(context).padding.top,
       ),
@@ -380,6 +387,4 @@ class _HomeState extends State<Home> {
       ),
     ]);
   }
-
-
 }

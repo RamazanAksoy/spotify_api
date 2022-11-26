@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:spotify_api/core/base/base_loading.dart';
+import 'package:spotify_api/core/constans/colors.dart';
 import 'package:spotify_api/utils/extensions/time_converter.dart';
 import 'package:spotify_api/views/favorite/view-model/favorities_view_model.dart';
 
@@ -29,15 +31,18 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
-        child:
-       Consumer(builder: (context,FavoritiesViewModel value, child) =>
-         BaseLoadingShimmer(currentWidget: currentWidget(),isLoading: value.checkLoading,loadingWidget:loadingWidget() ,)
-           ),
+        child: Consumer(
+            builder: (context, FavoritiesViewModel value, child) =>
+                BaseLoadingShimmer(
+                  currentWidget: currentWidget(),
+                  isLoading: value.checkLoading,
+                  loadingWidget: loadingWidget(),
+                )),
       ),
     );
   }
 
-  Widget loadingWidget(){
+  Widget loadingWidget() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -57,10 +62,8 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
         ),
         Container(
             height: 8.h,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30)),
-            margin:  EdgeInsets.only(left: 5.w,right: 5.w
-                ,top: 1.h),
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(30)),
+            margin: EdgeInsets.only(left: 5.w, right: 5.w, top: 1.h),
             alignment: Alignment.center,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -80,11 +83,11 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                       color: Colors.grey,
                       borderRadius: BorderRadius.circular(30)),
                 )
-
               ],
             )),
-        SizedBox(height: 2.h,
-            ),
+        SizedBox(
+          height: 2.h,
+        ),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -100,7 +103,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
             ),
             Container(
               height: 25.h,
-              margin:  EdgeInsets.only(left: 1.w),
+              margin: EdgeInsets.only(left: 1.w),
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 shrinkWrap: true,
@@ -118,14 +121,13 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                             borderRadius: BorderRadius.circular(30)),
                       ),
                       Container(
-
                         height: 2.h,
                         width: 25.w,
                         decoration: BoxDecoration(
                             color: Colors.grey,
                             borderRadius: BorderRadius.circular(30)),
-                          margin:  EdgeInsets.only(left: 5.w,top: 1.h),
-                          )
+                        margin: EdgeInsets.only(left: 5.w, top: 1.h),
+                      )
                     ],
                   );
                 },
@@ -160,7 +162,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
             SizedBox(
                 width: 100.w,
                 child: ListView.builder(
-                  physics: NeverScrollableScrollPhysics(),
+                  physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   itemCount: 4,
                   itemBuilder: (context, index) {
@@ -169,18 +171,18 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                           borderRadius: BorderRadius.circular(4.w),
                           color: Colors.grey),
                       margin:
-                      EdgeInsets.only(bottom: 2.5.h, left:2.h, right: 2.w),
+                          EdgeInsets.only(bottom: 2.5.h, left: 2.h, right: 2.w),
                       height: 6.h,
                     );
                   },
                 )),
           ],
         )
-
       ],
     );
   }
-  Widget currentWidget(){
+
+  Widget currentWidget() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -191,11 +193,13 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
       ],
     );
   }
+
   Widget artistSongsList() {
     return Consumer(
         builder: (context, FavoritiesViewModel value, child) =>
-        value.isLoadingArtistTopTrack?Container():artistSongListCurrentWidget(value));
-
+            value.isLoadingArtistTopTrack
+                ? Container()
+                : artistSongListCurrentWidget(value));
   }
 
   Column artistSongListCurrentWidget(FavoritiesViewModel value) {
@@ -316,9 +320,10 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
               .isLoadingArtistAlbum
           ? Container()
           : Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  margin: const EdgeInsets.only(left: 29),
+                  margin: EdgeInsets.only(left: 8.w),
                   width: 56,
                   height: 17,
                   child: Text("Albums",
@@ -329,7 +334,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                 ),
                 Container(
                   height: 190,
-                  margin: const EdgeInsets.only(left: 29),
+                  margin: const EdgeInsets.only(left: 20),
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
                     shrinkWrap: true,
@@ -337,22 +342,41 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                     itemBuilder: (context, index) {
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Container(
                             margin: const EdgeInsets.only(right: 16, top: 17),
                             width: 130,
                             height: 135,
                             decoration: BoxDecoration(
-                                color: Colors.grey,
-                                image: DecorationImage(
-                                    image: NetworkImage(value.artistAlbum!
-                                        .items![index].images![0].url
-                                        .toString())),
+                                color: Colors.grey.shade400,
                                 borderRadius: BorderRadius.circular(30)),
+                            child: ClipRRect(
+                                borderRadius: BorderRadius.circular(30),
+                                child: Image.network(
+                                  value
+                                      .artistAlbum!.items![index].images![0].url
+                                      .toString(),
+                                  fit: BoxFit.fill,
+                                  loadingBuilder: (BuildContext context,
+                                      Widget child,
+                                      ImageChunkEvent? loadingProgress) {
+                                    if (loadingProgress == null) return child;
+                                    return Center(
+                                      child: CircularProgressIndicator(
+                                        color: AppColors.green,
+                                      ),
+                                    );
+                                  },
+                                )),
                           ),
                           Container(
-                              margin: const EdgeInsets.only(top: 18),
+                              alignment: Alignment.center,
+                              width: 130,
+                              margin: const EdgeInsets.only(top: 18, right: 8),
                               child: Text(
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
                                   value.artistAlbum!.items![index].name
                                       .toString(),
                                   style: GoogleFonts.roboto(
@@ -384,24 +408,58 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                       Text(value.artistWithId!.artists![0].name.toString(),
                           style: GoogleFonts.roboto(
                               fontWeight: FontWeight.w700, fontSize: 20)),
-                      Text(
-                          " Popularity:${value.artistWithId!.artists![0].popularity}   Followers:${value.artistWithId!.artists![0].followers!.total} ",
-                          style: GoogleFonts.roboto(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 13,
-                              color: const Color(0xff393939))),
                       SizedBox(
-                        width: 265,
-                        height: 48,
-                        child: Text(
-                          "Genres : ${value.artistWithId!.artists![0].genres}",
-                          textAlign: TextAlign.center,
-                          style: GoogleFonts.roboto(
-                              color: const Color(0xff838383),
-                              fontSize: 12,
-                              fontWeight: FontWeight.w400),
+                        height: 1.2.h,
+                      ),
+                      RichText(
+                        text: TextSpan(
+                          text: 'Popularity: ',
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xff393939)),
+                          children: <TextSpan>[
+                            TextSpan(
+                                text:
+                                    '${value.artistWithId!.artists![0].popularity}',
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.normal,
+                                    color: Color(0xff393939))),
+                            const TextSpan(
+                                text: '   Followers: ',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Color(0xff393939))),
+                            TextSpan(
+                                text:
+                                    '${value.artistWithId!.artists![0].followers!.total}',
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.normal,
+                                    color: Color(0xff393939))),
+                          ],
                         ),
-                      )
+                      ),
+                      SizedBox(
+                        height: 0.2.h,
+                      ),
+                      SizedBox(
+                        height: 35,
+                        child: RichText(
+                            text: TextSpan(
+                                text: 'Genres : ',
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 13,
+                                    color: Color(0xff393939)),
+                                children: <TextSpan>[
+                              TextSpan(
+                                  text:
+                                      '${value.artistWithId!.artists![0].genres!.join(',')}',
+                                  style: GoogleFonts.roboto(
+                                      fontWeight: FontWeight.normal,
+                                      fontSize: 13,
+                                      color: Color(0xff393939))),
+                            ])),
+                      ),
                     ],
                   )),
     );

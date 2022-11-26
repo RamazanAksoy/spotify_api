@@ -11,18 +11,15 @@ class FavoriteServices {
   Dio dio = Dio(BaseOptions(baseUrl: App.baseUrl));
 
   Future<ArtistWithId?> getArtistWithIdData({String? artistId}) async {
-
     var params = {
-      'ids':
-          artistId??'0TnOYISbd1XYRBk9myaseg',
+      'ids': artistId ?? '0TnOYISbd1XYRBk9myaseg',
     };
     var query = params.entries.map((p) => '${p.key}=${p.value}').join('&');
 
     var url = Uri.parse('https://api.spotify.com/v1/artists?$query');
-    var res = await http.get(url, headers:App.requestHeaders);
+    var res = await http.get(url, headers: App.requestHeaders);
     if (res.statusCode != 200)
       throw Exception('http.get error: statusCode= ${res.statusCode}');
-    print(res.body);
 
     return ArtistWithId.fromJson(jsonDecode(res.body));
   }

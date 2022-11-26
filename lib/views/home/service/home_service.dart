@@ -96,7 +96,6 @@ class HomeServices {
           },
           options: Options(headers: App.requestHeaders));
       final categoriesList = CategoriesModel.fromJson(response.data);
-      print(categoriesList.toString());
       return categoriesList;
     } catch (e) {}
     return null;
@@ -117,7 +116,6 @@ class HomeServices {
 
       List<Categories> categoriesList =
           aa.map((user) => Categories.fromJson(user)).toList();
-      print(categoriesList);
       return categoriesList;
     } catch (e) {}
     return null;

@@ -15,16 +15,13 @@ import 'package:spotify_api/views/widgets/bottom_viewModel.dart';
 void main() {
   runApp(MultiProvider(
     providers: [
-      ChangeNotifierProvider<HomeViewModel>(
-          create: (_) => HomeViewModel()),
+      ChangeNotifierProvider<HomeViewModel>(create: (_) => HomeViewModel()),
       ChangeNotifierProvider<ProfileViewModel>(
           create: (_) => ProfileViewModel()),
       ChangeNotifierProvider<BottomViewModel>(create: (_) => BottomViewModel()),
       ChangeNotifierProvider<FavoritiesViewModel>(
           create: (_) => FavoritiesViewModel()),
-
-                ChangeNotifierProvider<SearchViewModel>(
-          create: (_) => SearchViewModel())
+      ChangeNotifierProvider<SearchViewModel>(create: (_) => SearchViewModel())
     ],
     builder: (context, child) => const MyApp(),
   ));
@@ -37,7 +34,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ResponsiveSizer(builder: (context, orientation, screenType) {
       return MaterialApp(
-        debugShowCheckedModeBanner:false,
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),

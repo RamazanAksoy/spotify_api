@@ -41,38 +41,41 @@ class _SearchScreenState extends State<SearchScreen> {
             const SizedBox(
               height: 10,
             ),
-
-            
-            Consumer(builder: (context,SearchViewModel value, child) => BaseLoadingShimmer(loadingWidget: ArtistAndSongsLoadingWidget(), currentWidget: ArtistAndSongsCurrentWidget(), isLoading: value.isLoadingSearch),)
-
-
-
-
+            Consumer(
+              builder: (context, SearchViewModel value, child) =>
+                  value.textLengthController
+                      ? Container()
+                      : BaseLoadingShimmer(
+                          loadingWidget: ArtistAndSongsLoadingWidget(),
+                          currentWidget: ArtistAndSongsCurrentWidget(),
+                          isLoading: value.isLoadingSearch),
+            )
           ],
         ),
       ),
     );
   }
 
-  Widget ArtistAndSongsLoadingWidget(){
-    return    Column(children: [
-      Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text("Artists",
-              style:
-              Styles.titleStyle(fontSize: 17.sp, color: Colors.black87)),
-          SizedBox(
-            width: 100.w,
-            child: ListView.builder(
-              physics: const NeverScrollableScrollPhysics(),
-              padding: EdgeInsets.only(top: 1.h),
-              itemCount: 5,
-              shrinkWrap: true,
-              itemBuilder: (context, index) {
-                return Container(
-                  height: 5.h,
-                  padding: EdgeInsets.all(3.w),
+  Widget ArtistAndSongsLoadingWidget() {
+    return Column(
+      children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text("Artists",
+                style:
+                    Styles.titleStyle(fontSize: 17.sp, color: Colors.black87)),
+            SizedBox(
+              width: 100.w,
+              child: ListView.builder(
+                physics: const NeverScrollableScrollPhysics(),
+                padding: EdgeInsets.only(top: 1.h),
+                itemCount: 5,
+                shrinkWrap: true,
+                itemBuilder: (context, index) {
+                  return Container(
+                    height: 5.h,
+                    padding: EdgeInsets.all(3.w),
                     decoration: BoxDecoration(
                         color: Colors.white,
                         boxShadow: [
@@ -86,59 +89,59 @@ class _SearchScreenState extends State<SearchScreen> {
                         ],
                         borderRadius: BorderRadius.circular(2.w)),
                     margin: EdgeInsets.only(bottom: 1.h),
-
-                );
-              },
+                  );
+                },
+              ),
             ),
-          ),
-        ],
-      ),
-      SizedBox(
-        height: 3.h,
-      ),
-      Text("Songs",
-          style:
-          Styles.titleStyle(fontSize: 17.sp, color: Colors.black87)),
-      SizedBox(
-        width: 100.w,
-        child: ListView.builder(
-          physics: const NeverScrollableScrollPhysics(),
-          padding: EdgeInsets.only(top: 1.h),
-          itemCount: 5,
-          shrinkWrap: true,
-          itemBuilder: (context, index) {
-            return Container(
-              height: 5.h,
-              padding: EdgeInsets.all(3.w),
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.1),
-                      spreadRadius: 1,
-                      blurRadius: 5,
-                      offset: const Offset(
-                          0, 3), // changes position of shadow
-                    ),
-                  ],
-                  borderRadius: BorderRadius.circular(2.w)),
-              margin: EdgeInsets.only(bottom: 1.h),
-
-            );
-          },
+          ],
         ),
-      ),
-    ],);
+        SizedBox(
+          height: 3.h,
+        ),
+        Text("Songs",
+            style: Styles.titleStyle(fontSize: 17.sp, color: Colors.black87)),
+        SizedBox(
+          width: 100.w,
+          child: ListView.builder(
+            physics: const NeverScrollableScrollPhysics(),
+            padding: EdgeInsets.only(top: 1.h),
+            itemCount: 5,
+            shrinkWrap: true,
+            itemBuilder: (context, index) {
+              return Container(
+                height: 5.h,
+                padding: EdgeInsets.all(3.w),
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.1),
+                        spreadRadius: 1,
+                        blurRadius: 5,
+                        offset:
+                            const Offset(0, 3), // changes position of shadow
+                      ),
+                    ],
+                    borderRadius: BorderRadius.circular(2.w)),
+                margin: EdgeInsets.only(bottom: 1.h),
+              );
+            },
+          ),
+        ),
+      ],
+    );
   }
 
-  Widget ArtistAndSongsCurrentWidget(){
-    return    Column(children: [
-      searchArtisList(),
-      SizedBox(
-        height: 3.h,
-      ),
-      searchSongList()
-    ],);
+  Widget ArtistAndSongsCurrentWidget() {
+    return Column(
+      children: [
+        searchArtisList(),
+        SizedBox(
+          height: 3.h,
+        ),
+        searchSongList()
+      ],
+    );
   }
 
   Widget searchSongList() {
@@ -146,11 +149,11 @@ class _SearchScreenState extends State<SearchScreen> {
       builder: (context, SearchViewModel value, child) => value.isLoadingSearch
           ? Container()
           : Column(
-            children: [
-                     Text("Songs",
-                style:
-                    Styles.titleStyle(fontSize: 17.sp, color: Colors.black87)),
-              SizedBox(
+              children: [
+                Text("Songs",
+                    style: Styles.titleStyle(
+                        fontSize: 17.sp, color: Colors.black87)),
+                SizedBox(
                   width: 100.w,
                   child: ListView.builder(
                     physics: const NeverScrollableScrollPhysics(),
@@ -179,7 +182,8 @@ class _SearchScreenState extends State<SearchScreen> {
                               Row(
                                 children: [
                                   Text(
-                                    value.searchModel!.tracks!.items2![index].name
+                                    value.searchModel!.tracks!.items2![index]
+                                        .name
                                         .toString(),
                                     style: Styles.titleStyle(),
                                   )
@@ -191,8 +195,8 @@ class _SearchScreenState extends State<SearchScreen> {
                     },
                   ),
                 ),
-            ],
-          ),
+              ],
+            ),
     );
   }
 
@@ -201,11 +205,11 @@ class _SearchScreenState extends State<SearchScreen> {
       builder: (context, SearchViewModel value, child) => value.isLoadingSearch
           ? Container()
           : Column(
-            children: [
-                 Text("Artists",
-                style:
-                    Styles.titleStyle(fontSize: 17.sp, color: Colors.black87)),
-              SizedBox(
+              children: [
+                Text("Artists",
+                    style: Styles.titleStyle(
+                        fontSize: 17.sp, color: Colors.black87)),
+                SizedBox(
                   width: 100.w,
                   child: ListView.builder(
                     physics: const NeverScrollableScrollPhysics(),
@@ -219,8 +223,8 @@ class _SearchScreenState extends State<SearchScreen> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) => FavoriteScreen(
-                                    id: value
-                                        .searchModel!.artists!.items![index].id),
+                                    id: value.searchModel!.artists!
+                                        .items![index].id),
                               ));
                         },
                         child: Container(
@@ -256,17 +260,23 @@ class _SearchScreenState extends State<SearchScreen> {
                                                       .images!
                                                       .isEmpty
                                                   ? ""
-                                                  : value.searchModel!.artists!
-                                                      .items![index].images![0].url
+                                                  : value
+                                                      .searchModel!
+                                                      .artists!
+                                                      .items![index]
+                                                      .images![0]
+                                                      .url
                                                       .toString()),
                                               fit: BoxFit.cover),
-                                          borderRadius: BorderRadius.circular(5.w)),
+                                          borderRadius:
+                                              BorderRadius.circular(5.w)),
                                     ),
                                     SizedBox(
                                       width: 4.w,
                                     ),
                                     Text(
-                                      value.searchModel!.artists!.items![index].name
+                                      value.searchModel!.artists!.items![index]
+                                          .name
                                           .toString(),
                                       style: Styles.titleStyle(),
                                     )
@@ -279,8 +289,8 @@ class _SearchScreenState extends State<SearchScreen> {
                     },
                   ),
                 ),
-            ],
-          ),
+              ],
+            ),
     );
   }
 
@@ -290,6 +300,17 @@ class _SearchScreenState extends State<SearchScreen> {
       height: 50,
       child: TextFormField(
         controller: _textEditingController,
+        onChanged: (deger) {
+          if (deger.length >= 3) {
+            Provider.of<SearchViewModel>(context, listen: false)
+                .settextLengthController(false);
+            Provider.of<SearchViewModel>(context, listen: false)
+                .getSearch(search: _textEditingController.text);
+          } else {
+            Provider.of<SearchViewModel>(context, listen: false)
+                .settextLengthController(true);
+          }
+        },
         decoration: InputDecoration(
           prefixIconColor: Colors.black,
           hoverColor: Colors.black,
@@ -332,6 +353,4 @@ class _SearchScreenState extends State<SearchScreen> {
       ]),
     );
   }
-
-
 }

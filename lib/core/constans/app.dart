@@ -1,8 +1,7 @@
 // default values for app
 
 class App {
-  // app name
-  static const appName = '';
+  // api base url
   static const baseUrl = "https://api.spotify.com/v1/";
 
   // headers
@@ -10,6 +9,6 @@ class App {
     'Accept': 'application/json',
     'Content-Type': 'application/json',
     'Authorization':
-        'Bearer BQDl9_NiDnAUA8-ndvcHDTCYGXg4ANcMIXc25aajDRxNrY-AzbKD6AZ_gc58arT_BGJ0BS1MhbDimiCNy-LMRU4yREkVJjDLc18d9qszxN4ZGiPRlOI61zKyz_uI5zm2LrIf5XKdTKxtNZEiKfEBjCRIJ9Js8mDV1HhLbRpMixnqD7DRUf0ldXxs4vlyU7N77l7VPp_i1qe90W3ZYZbKkALyaAAg4fndq2vHDEeo1jElt_znlBk6hG6yp2SOyug9zE2XYev7-WUQEVS4VyQnjLeGnuek7g6u2fz1YVYY16oE',
+        'Bearer BQAvcyma9C76UNOjo4W-YIdMKw8kHdYk3HKl2sanQMk7ddD27M0Bbj22Xzn2OG672FgrD3hkFbr3ziTn19zkGO6H0kPTXodpOWwprHlRJz0ZT0RQ6XXMT38lQw5r3zdAmM8xyb8GNfAdyL_Plj7v5aybn7CXGTXPBdWDLcp2Ca21TBm-vd68U172LtVtw1GuqVbUtZnaGlVQ1UGim59x_2DbrkPdsCqq3PamvF90WrUoqTk0OJ4CW6cmaEjjIO2bdui23IS1xNGvgLm93KPF8Cn9N9sHQHJTMO2v1gqvQ5Ja',
   };
 }
