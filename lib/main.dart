@@ -22,6 +22,7 @@ void main() {
       ChangeNotifierProvider<BottomViewModel>(create: (_) => BottomViewModel()),
       ChangeNotifierProvider<FavoritiesViewModel>(
           create: (_) => FavoritiesViewModel()),
+
                 ChangeNotifierProvider<SearchViewModel>(
           create: (_) => SearchViewModel())
     ],

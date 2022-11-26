@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:spotify_api/views/favorite/model/artist_top_track.dart';
 import 'package:spotify_api/views/home/model/album_track.dart';
@@ -23,6 +24,22 @@ class HomeViewModel with ChangeNotifier {
   bool isLoadingAlbumTracks = true;
   bool isLoadingPodcast = true;
 
+  bool checkLoading=true;
+
+
+  checkLoadingfalse(){
+    checkLoading=true;
+    notifyListeners();
+  }
+  setCheckLoading(){
+    checkLoading=true;
+    if(isLoadingnNewRelease==false&&isLoadingnSeveralArtist==false&&isLoadingPodcast==false&&isLoadingArtistTopTracks==false)
+      {
+        checkLoading=false;
+      }
+    notifyListeners();
+  }
+
   setcurrentIndexTabContainer(int id) 
   {
     currentIndexTabContainer = id;
@@ -40,6 +57,8 @@ class HomeViewModel with ChangeNotifier {
     albumTracks = (await HomeServices().getAlbumTrackData())!;
     isLoadingAlbumTracks = false;
     notifyListeners();
+    setCheckLoading();
+
   }
    getPodcast() async {
     isLoadingPodcast = true;
@@ -54,6 +73,8 @@ class HomeViewModel with ChangeNotifier {
     isLoadingnNewRelease = false;
    getartistWithId(userId: newReleasesAlbum!.albums!.items![0].artists![0].id);
     notifyListeners();
+    setCheckLoading();
+
   }
 
   getSeveralArtist() async {
@@ -61,6 +82,8 @@ class HomeViewModel with ChangeNotifier {
     severalArtist = (await HomeServices().getSeveralArtistData())!;
     isLoadingnSeveralArtist = false;
     notifyListeners();
+    setCheckLoading();
+
   }
 
   getartistWithId({String? userId}) async {
@@ -68,5 +91,7 @@ class HomeViewModel with ChangeNotifier {
     artistTopTracks = (await HomeServices().getArtistIdWithData(id: userId))!;
     isLoadingArtistTopTracks = false;
     notifyListeners();
+    setCheckLoading();
+
   }
 }

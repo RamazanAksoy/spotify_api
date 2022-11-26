@@ -3,6 +3,7 @@ import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:spotify_api/core/base/base_loading.dart';
 import 'package:spotify_api/core/constans/colors.dart';
 import 'package:spotify_api/utils/helpers/text_styles.dart';
 import 'package:spotify_api/views/search/model-view/search_model_view.dart';
@@ -40,17 +41,104 @@ class _SearchScreenState extends State<SearchScreen> {
             const SizedBox(
               height: 10,
             ),
-         
-            searchArtisList(),
-            SizedBox(
-              height: 3.h,
-            ),
-     
-            searchSongList()
+
+            
+            Consumer(builder: (context,SearchViewModel value, child) => BaseLoadingShimmer(loadingWidget: ArtistAndSongsLoadingWidget(), currentWidget: ArtistAndSongsCurrentWidget(), isLoading: value.isLoadingSearch),)
+
+
+
+
           ],
         ),
       ),
     );
+  }
+
+  Widget ArtistAndSongsLoadingWidget(){
+    return    Column(children: [
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text("Artists",
+              style:
+              Styles.titleStyle(fontSize: 17.sp, color: Colors.black87)),
+          SizedBox(
+            width: 100.w,
+            child: ListView.builder(
+              physics: const NeverScrollableScrollPhysics(),
+              padding: EdgeInsets.only(top: 1.h),
+              itemCount: 5,
+              shrinkWrap: true,
+              itemBuilder: (context, index) {
+                return Container(
+                  height: 5.h,
+                  padding: EdgeInsets.all(3.w),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.1),
+                            spreadRadius: 1,
+                            blurRadius: 5,
+                            offset: const Offset(
+                                0, 3), // changes position of shadow
+                          ),
+                        ],
+                        borderRadius: BorderRadius.circular(2.w)),
+                    margin: EdgeInsets.only(bottom: 1.h),
+
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+      SizedBox(
+        height: 3.h,
+      ),
+      Text("Songs",
+          style:
+          Styles.titleStyle(fontSize: 17.sp, color: Colors.black87)),
+      SizedBox(
+        width: 100.w,
+        child: ListView.builder(
+          physics: const NeverScrollableScrollPhysics(),
+          padding: EdgeInsets.only(top: 1.h),
+          itemCount: 5,
+          shrinkWrap: true,
+          itemBuilder: (context, index) {
+            return Container(
+              height: 5.h,
+              padding: EdgeInsets.all(3.w),
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.1),
+                      spreadRadius: 1,
+                      blurRadius: 5,
+                      offset: const Offset(
+                          0, 3), // changes position of shadow
+                    ),
+                  ],
+                  borderRadius: BorderRadius.circular(2.w)),
+              margin: EdgeInsets.only(bottom: 1.h),
+
+            );
+          },
+        ),
+      ),
+    ],);
+  }
+
+  Widget ArtistAndSongsCurrentWidget(){
+    return    Column(children: [
+      searchArtisList(),
+      SizedBox(
+        height: 3.h,
+      ),
+      searchSongList()
+    ],);
   }
 
   Widget searchSongList() {
@@ -244,4 +332,6 @@ class _SearchScreenState extends State<SearchScreen> {
       ]),
     );
   }
+
+
 }

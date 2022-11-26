@@ -7,12 +7,15 @@ class SearchViewModel extends ChangeNotifier{
 SearchModel ?searchModel;
 bool isLoadingSearch=true;
 
-  getSearch({String ?search,String ?type,String? market,String ?limit,String ?offset}) async {
+  getSearch({String ?search,String ?type,String? market,String ?limit,String ?offset}) async
+  {
     isLoadingSearch = true;
     searchModel = (await SearchService().getSearchData(limit: limit,market: market,offset: offset,search: search,type: type));
     isLoadingSearch = false;
     notifyListeners();
   }
+
+
 
 
 }

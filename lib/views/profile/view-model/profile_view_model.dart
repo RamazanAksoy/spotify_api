@@ -7,16 +7,31 @@ import '../service/profile_service.dart';
 class ProfileViewModel with ChangeNotifier {
   PlaylistModel? userPlayList;
   ProfileModel? profile;
+
   bool isLoadingProfile = true;
   bool isLoadingUserPlayList = true;
+
+  bool checkLoading=true;
+  checkLoadingfalse(){
+    checkLoading=true;
+    notifyListeners();
+  }
+  setCheckLoading(){
+    checkLoading=true;
+    if(isLoadingProfile==false&&isLoadingUserPlayList==false)
+    {
+      checkLoading=false;
+    }
+    notifyListeners();
+  }
+
 
   getProfile() async {
     isLoadingProfile = true;
     profile = (await ProfileServices().getProfileData());
     isLoadingProfile = false;
-    print(profile);
-
     notifyListeners();
+    setCheckLoading();
   }
 
   getUserPlaylist() async {
@@ -24,5 +39,7 @@ class ProfileViewModel with ChangeNotifier {
     userPlayList = (await ProfileServices().getUserPlaylistData());
     isLoadingUserPlayList = false;
     notifyListeners();
+    setCheckLoading();
+
   }
 }

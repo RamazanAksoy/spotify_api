@@ -18,7 +18,7 @@ class _BottomWidgetState extends State<BottomWidget> {
         builder: (context, BottomViewModel value, child) => BottomNavigationBar(
               currentIndex: value.customSelectedIndex,
               onTap: (index) {
-                value.changedCustomSelectedIndex(index);
+                value.changedCustomSelectedIndex(index,context);
               },
               elevation: 0,
               type: BottomNavigationBarType.fixed,

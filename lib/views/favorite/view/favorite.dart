@@ -17,7 +17,6 @@ class FavoriteScreen extends StatefulWidget {
 class _FavoriteScreenState extends State<FavoriteScreen> {
   @override
   void initState() {
-    // TODO: implement initState
     final aa = Provider.of<FavoritiesViewModel>(context, listen: false);
     aa.getArtistTopTrack(artistId: widget.id);
     aa.getArtistAlbum(artistId: widget.id);
@@ -30,26 +29,174 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            appbarFavorite(),
-            artistDetails(),
-            artistAlbumsList(),
-            artistSongsList()
-          ],
-        ),
+        child:
+       Consumer(builder: (context,FavoritiesViewModel value, child) =>
+         BaseLoadingShimmer(currentWidget: currentWidget(),isLoading: value.checkLoading,loadingWidget:loadingWidget() ,)
+           ),
       ),
     );
   }
 
+  Widget loadingWidget(){
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Stack(
+          children: [
+            Container(
+              width: double.infinity,
+              height: 240,
+              // ignore: prefer_const_constructors
+              decoration: BoxDecoration(
+                  color: Colors.grey,
+                  borderRadius: const BorderRadius.only(
+                      bottomLeft: Radius.circular(69),
+                      bottomRight: Radius.circular(69))),
+            ),
+          ],
+        ),
+        Container(
+            height: 8.h,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(30)),
+            margin:  EdgeInsets.only(left: 5.w,right: 5.w
+                ,top: 1.h),
+            alignment: Alignment.center,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  height: 2.h,
+                  width: 75.w,
+                  decoration: BoxDecoration(
+                      color: Colors.grey,
+                      borderRadius: BorderRadius.circular(30)),
+                  margin: const EdgeInsets.only(top: 18),
+                ),
+                Container(
+                  height: 2.h,
+                  width: 75.w,
+                  decoration: BoxDecoration(
+                      color: Colors.grey,
+                      borderRadius: BorderRadius.circular(30)),
+                )
+
+              ],
+            )),
+        SizedBox(height: 2.h,
+            ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              margin: const EdgeInsets.only(left: 29),
+              width: 56,
+              height: 17,
+              child: Text("Albums",
+                  style: GoogleFonts.roboto(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 16,
+                      color: const Color(0xff222222))),
+            ),
+            Container(
+              height: 25.h,
+              margin:  EdgeInsets.only(left: 1.w),
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                shrinkWrap: true,
+                itemCount: 4,
+                itemBuilder: (context, index) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.only(right: 16, top: 17),
+                        width: 130,
+                        height: 135,
+                        decoration: BoxDecoration(
+                            color: Colors.grey,
+                            borderRadius: BorderRadius.circular(30)),
+                      ),
+                      Container(
+
+                        height: 2.h,
+                        width: 25.w,
+                        decoration: BoxDecoration(
+                            color: Colors.grey,
+                            borderRadius: BorderRadius.circular(30)),
+                          margin:  EdgeInsets.only(left: 5.w,top: 1.h),
+                          )
+                    ],
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+        Column(
+          children: [
+            Container(
+              margin: EdgeInsets.only(top: 26, left: 3.6.h),
+              width: 345,
+              height: 20,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                      child: Text("Songs",
+                          style: GoogleFonts.roboto(
+                              fontWeight: FontWeight.w700,
+                              fontSize: 16,
+                              color: const Color(0xff222222)))),
+                  Text("See more",
+                      style: GoogleFonts.roboto(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 11,
+                          color: const Color(0xff131313))),
+                ],
+              ),
+            ),
+            SizedBox(
+                width: 100.w,
+                child: ListView.builder(
+                  physics: NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: 4,
+                  itemBuilder: (context, index) {
+                    return Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(4.w),
+                          color: Colors.grey),
+                      margin:
+                      EdgeInsets.only(bottom: 2.5.h, left:2.h, right: 2.w),
+                      height: 6.h,
+                    );
+                  },
+                )),
+          ],
+        )
+
+      ],
+    );
+  }
+  Widget currentWidget(){
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        appbarFavorite(),
+        artistDetails(),
+        artistAlbumsList(),
+        artistSongsList()
+      ],
+    );
+  }
   Widget artistSongsList() {
     return Consumer(
         builder: (context, FavoritiesViewModel value, child) =>
         value.isLoadingArtistTopTrack?Container():artistSongListCurrentWidget(value));
 
   }
-
 
   Column artistSongListCurrentWidget(FavoritiesViewModel value) {
     return Column(

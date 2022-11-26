@@ -15,20 +15,36 @@ class FavoritiesViewModel with ChangeNotifier {
   bool isLoadingArtistAlbum = true;
   bool isLoadingArtistTopTrack = true;
 
+  bool checkLoading=true;
+
+  checkLoadingfalse(){
+    checkLoading=true;
+    notifyListeners();
+  }
+  setCheckLoading(){
+    checkLoading=true;
+    if(isLoadingArtistWithId==false&&isLoadingArtistAlbum==false&&isLoadingArtistTopTrack==false)
+    {
+      checkLoading=false;
+    }
+    notifyListeners();
+  }
+
   getArtistWithId({String ?artistId}) async {
     isLoadingArtistWithId = true;
     artistWithId = (await FavoriteServices().getArtistWithIdData(artistId: artistId))!;
     isLoadingArtistWithId = false;
     notifyListeners();
+    setCheckLoading();
   }
 
   Future<dynamic> getArtistAlbum({String ?artistId}) async {
     isLoadingArtistAlbum = true;
     artistAlbum = (await FavoriteServices().getArtistAlbumData(artistId: artistId))!;
     isLoadingArtistAlbum = false;
-    print(artistAlbum);
-
     notifyListeners();
+    setCheckLoading();
+
   }
 
   getArtistTopTrack({String ?artistId}) async {
@@ -36,5 +52,7 @@ class FavoritiesViewModel with ChangeNotifier {
     artistTopTracks = (await FavoriteServices().getArtistTopTrackData(artistId: artistId))!;
     isLoadingArtistTopTrack = false;
     notifyListeners();
+    setCheckLoading();
+
   }
 }
