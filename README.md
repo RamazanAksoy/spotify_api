@@ -1,16 +1,9 @@
 # spotify_api
 
-A new Flutter project.
+spotify developer token : BQC8cC6k-j2I4jLbncHKBApP8guntsj0nTCtG_1RMOktQq0NBDQ0wo6-noZ31rqt15fawZyiJAk5qehPOMYiCLbkeC_m9gIZbNyz6YvnrT8lp30nPdFj5B5J_J_9Lw7QgqZOxGwpAURN4BDbhyDlyR8GfWkYvWnDcZB9ERmTYnKw1y5cQzswW--TEqu5I92-OGQFDi9uB08VPUZ6ucTrC7JguGtqfDpw-OF6wLhf_d8MA7ydXnbFmrGviW8wKLgAECFDXBbal5BM1DTqtxufK1N1myctrjscPYuVTLlXQmmS
 
-## Getting Started
+You can change the token in core/constans/app by creating your own token at https://developer.spotify.com/console/
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+https://user-images.githubusercontent.com/61667679/204108545-7b9a145b-4d61-497c-9803-83075cac95e2.mp4
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
