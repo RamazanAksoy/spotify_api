@@ -51,10 +51,22 @@ class _CoverPageState extends State<CoverPage> {
                   Container(
                     width: 25.w,
                     decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(18.sp),
+                    ),
+                    child: ClipRRect(
                         borderRadius: BorderRadius.circular(18.sp),
-                        image: DecorationImage(
-                          image: NetworkImage(
-                              "${value.newReleasesAlbum!.albums!.items![0].images![0].url}"),
+                        child: Image.network(
+                          "${value.newReleasesAlbum!.albums!.items![0].images![0].url}",
+                          fit: BoxFit.cover,
+                          loadingBuilder: (BuildContext context, Widget child,
+                              ImageChunkEvent? loadingProgress) {
+                            if (loadingProgress == null) return child;
+                            return const Center(
+                              child: CircularProgressIndicator(
+                                color: AppColors.green,
+                              ),
+                            );
+                          },
                         )),
                   )
                 ],

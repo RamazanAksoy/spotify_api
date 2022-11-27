@@ -1,9 +1,11 @@
-class NewReleasesAlbum {
+import 'package:spotify_api/core/base/base_model.dart';
+
+class NewReleasesAlbum extends IBaseModel {
   Albums? albums;
 
   NewReleasesAlbum({this.albums});
 
-  NewReleasesAlbum.fromJson(Map<String, dynamic> json) {
+  NewReleasesAlbum.fromJson(Map<dynamic, dynamic> json) {
     albums =
         json['albums'] != null ? new Albums.fromJson(json['albums']) : null;
   }
@@ -14,6 +16,11 @@ class NewReleasesAlbum {
       data['albums'] = this.albums!.toJson();
     }
     return data;
+  }
+
+  @override
+  fromJson(Map<dynamic, dynamic> json) {
+    return NewReleasesAlbum.fromJson(json);
   }
 }
 

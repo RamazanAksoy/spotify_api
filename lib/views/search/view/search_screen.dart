@@ -251,25 +251,43 @@ class _SearchScreenState extends State<SearchScreen> {
                                       width: 10.w,
                                       height: 10.w,
                                       decoration: BoxDecoration(
-                                          color: Colors.red,
-                                          image: DecorationImage(
-                                              image: NetworkImage(value
-                                                      .searchModel!
-                                                      .artists!
-                                                      .items![index]
-                                                      .images!
-                                                      .isEmpty
-                                                  ? ""
-                                                  : value
-                                                      .searchModel!
-                                                      .artists!
-                                                      .items![index]
-                                                      .images![0]
-                                                      .url
-                                                      .toString()),
-                                              fit: BoxFit.cover),
+                                          color: Colors.grey.shade300,
                                           borderRadius:
                                               BorderRadius.circular(5.w)),
+                                      child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(5.w),
+                                          child: Image.network(
+                                            value
+                                                    .searchModel!
+                                                    .artists!
+                                                    .items![index]
+                                                    .images!
+                                                    .isEmpty
+                                                ? ""
+                                                : value
+                                                    .searchModel!
+                                                    .artists!
+                                                    .items![index]
+                                                    .images![0]
+                                                    .url
+                                                    .toString(),
+                                            fit: BoxFit.cover,
+                                            loadingBuilder:
+                                                (BuildContext context,
+                                                    Widget child,
+                                                    ImageChunkEvent?
+                                                        loadingProgress) {
+                                              if (loadingProgress == null)
+                                                return child;
+                                              return const Center(
+                                                child:
+                                                    CircularProgressIndicator(
+                                                  color: AppColors.green,
+                                                ),
+                                              );
+                                            },
+                                          )),
                                     ),
                                     SizedBox(
                                       width: 4.w,

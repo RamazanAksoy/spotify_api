@@ -1,4 +1,6 @@
-class ProfileModel {
+import 'package:spotify_api/core/base/base_model.dart';
+
+class ProfileModel extends IBaseModel {
   String? country;
   String? displayName;
   String? email;
@@ -26,7 +28,7 @@ class ProfileModel {
       this.type,
       this.uri});
 
-  ProfileModel.fromJson(Map<String, dynamic> json) {
+  ProfileModel.fromJson(Map<dynamic, dynamic> json) {
     country = json['country'];
     displayName = json['display_name'];
     email = json['email'];
@@ -75,6 +77,11 @@ class ProfileModel {
     data['type'] = this.type;
     data['uri'] = this.uri;
     return data;
+  }
+
+  @override
+  fromJson(Map<dynamic, dynamic> json) {
+    return ProfileModel.fromJson(json);
   }
 }
 

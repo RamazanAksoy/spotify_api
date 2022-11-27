@@ -1,11 +1,7 @@
-import 'package:dio/dio.dart';
 import 'package:spotify_api/views/search/model/searchmodel.dart';
+import '../../../core/base/base_service.dart';
 
-import '../../../core/constans/app.dart';
-
-class SearchService {
-  Dio dio = Dio(BaseOptions(baseUrl: App.baseUrl));
-
+class SearchService extends BaseService {
   Future<SearchModel?> getSearchData(
       {String? search,
       String? type,
@@ -19,13 +15,8 @@ class SearchService {
       'limit': limit ?? '5',
       'offset': offset ?? '0',
     };
-    try {
-      final response = await dio.get("search",
-          queryParameters: params,
-          options: Options(headers: App.requestHeaders));
-      final categoriesList = SearchModel.fromJson(response.data);
-      return categoriesList;
-    } catch (e) {}
-    return null;
+
+    return await fetch<SearchModel>("search",
+        model: SearchModel(), queryParameters: params);
   }
 }

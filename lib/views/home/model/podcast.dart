@@ -1,9 +1,11 @@
-class PodcastModel {
+import 'package:spotify_api/core/base/base_model.dart';
+
+class PodcastModel extends IBaseModel {
   List<Episodes>? episodes;
 
   PodcastModel({this.episodes});
 
-  PodcastModel.fromJson(Map<String, dynamic> json) {
+  PodcastModel.fromJson(Map<dynamic, dynamic> json) {
     if (json['episodes'] != null) {
       episodes = <Episodes>[];
       json['episodes'].forEach((v) {
@@ -18,6 +20,11 @@ class PodcastModel {
       data['episodes'] = this.episodes!.map((v) => v.toJson()).toList();
     }
     return data;
+  }
+
+  @override
+  fromJson(Map<dynamic, dynamic> json) {
+    return PodcastModel.fromJson(json);
   }
 }
 
@@ -200,8 +207,7 @@ class Show {
   Show.fromJson(Map<String, dynamic> json) {
     availableMarkets = json['available_markets'].cast<String>();
     if (json['copyrights'] != null) {
-      json['copyrights'].forEach((v) {
-      });
+      json['copyrights'].forEach((v) {});
     }
     description = json['description'];
     explicit = json['explicit'];

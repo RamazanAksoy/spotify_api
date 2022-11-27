@@ -1,9 +1,11 @@
-class SeveralArtist {
+import 'package:spotify_api/core/base/base_model.dart';
+
+class SeveralArtist extends IBaseModel {
   List<Artists>? artists;
 
   SeveralArtist({this.artists});
 
-  SeveralArtist.fromJson(Map<String, dynamic> json) {
+  SeveralArtist.fromJson(Map<dynamic, dynamic> json) {
     if (json['artists'] != null) {
       artists = <Artists>[];
       json['artists'].forEach((v) {
@@ -18,6 +20,11 @@ class SeveralArtist {
       data['artists'] = this.artists!.map((v) => v.toJson()).toList();
     }
     return data;
+  }
+
+  @override
+  fromJson(Map<dynamic, dynamic> json) {
+    return SeveralArtist.fromJson(json);
   }
 }
 

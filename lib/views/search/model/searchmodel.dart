@@ -1,10 +1,12 @@
-class SearchModel {
+import 'package:spotify_api/core/base/base_model.dart';
+
+class SearchModel extends IBaseModel<SearchModel> {
   Artists? artists;
   Tracks? tracks;
 
   SearchModel({this.artists, this.tracks});
 
-  SearchModel.fromJson(Map<String, dynamic> json) {
+  SearchModel.fromJson(Map<dynamic, dynamic> json) {
     artists =
         json['artists'] != null ? new Artists.fromJson(json['artists']) : null;
     tracks =
@@ -20,6 +22,11 @@ class SearchModel {
       data['tracks'] = this.tracks!.toJson();
     }
     return data;
+  }
+
+  @override
+  SearchModel fromJson(Map<dynamic, dynamic> json) {
+    return SearchModel.fromJson(json);
   }
 }
 
@@ -420,8 +427,6 @@ class Album {
     return data;
   }
 }
-
-
 
 class ExternalIds {
   String? isrc;

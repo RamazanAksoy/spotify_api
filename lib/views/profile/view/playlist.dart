@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:spotify_api/utils/helpers/text_styles.dart';
 
+import '../../../core/constans/colors.dart';
+
 class Playlist extends StatelessWidget {
   final String imagePath;
   final String songName;
@@ -12,7 +14,8 @@ class Playlist extends StatelessWidget {
       {super.key,
       required this.imagePath,
       required this.songName,
-      required this.artistName, required this.trackTotal});
+      required this.artistName,
+      required this.trackTotal});
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +31,21 @@ class Playlist extends StatelessWidget {
               height: 6.h,
               width: 6.h,
               decoration: profilePhoto(imagePath, 10),
+              child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: Image.network(
+                    imagePath,
+                    fit: BoxFit.cover,
+                    loadingBuilder: (BuildContext context, Widget child,
+                        ImageChunkEvent? loadingProgress) {
+                      if (loadingProgress == null) return child;
+                      return const Center(
+                        child: CircularProgressIndicator(
+                          color: AppColors.green,
+                        ),
+                      );
+                    },
+                  )),
             ),
             SizedBox(
               height: 8.h,
@@ -50,15 +68,21 @@ class Playlist extends StatelessWidget {
                 ],
               ),
             ),
-            Row(children: [
-              Text(trackTotal.toString(),style: Styles.bodyStyle(),),
-              SizedBox(width: 8.w,),
-  Icon(
-              Icons.more_horiz_rounded,
-              color: Colors.grey.shade400,
-            ),
-            ],)
-          
+            Row(
+              children: [
+                Text(
+                  trackTotal.toString(),
+                  style: Styles.bodyStyle(),
+                ),
+                SizedBox(
+                  width: 8.w,
+                ),
+                Icon(
+                  Icons.more_horiz_rounded,
+                  color: Colors.grey.shade400,
+                ),
+              ],
+            )
           ],
         ),
       ),
@@ -67,8 +91,7 @@ class Playlist extends StatelessWidget {
 
   BoxDecoration profilePhoto(String path, double radius) {
     return BoxDecoration(
-      color: Colors.black,
-      image: DecorationImage(image: NetworkImage(path), fit: BoxFit.cover),
+      color: Colors.grey.shade300,
       borderRadius: BorderRadius.circular(radius),
     );
   }

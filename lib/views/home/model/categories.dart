@@ -1,9 +1,11 @@
-class CategoriesModel {
+import 'package:spotify_api/core/base/base_model.dart';
+
+class CategoriesModel extends IBaseModel {
   Categories? categories;
 
   CategoriesModel({this.categories});
 
-  CategoriesModel.fromJson(Map<String, dynamic> json) {
+  CategoriesModel.fromJson(Map<dynamic, dynamic> json) {
     categories = json['categories'] != null
         ? new Categories.fromJson(json['categories'])
         : null;
@@ -16,9 +18,14 @@ class CategoriesModel {
     }
     return data;
   }
+
+  @override
+  fromJson(Map<dynamic, dynamic> json) {
+    return CategoriesModel.fromJson(json);
+  }
 }
 
-class Categories {
+class Categories extends IBaseModel {
   String? href;
   List<Items>? items;
   int? limit;
@@ -36,7 +43,7 @@ class Categories {
       this.previous,
       this.total});
 
-  Categories.fromJson(Map<String, dynamic> json) {
+  Categories.fromJson(Map<dynamic, dynamic> json) {
     href = json['href'];
     if (json['items'] != null) {
       items = <Items>[];
@@ -63,6 +70,11 @@ class Categories {
     data['previous'] = this.previous;
     data['total'] = this.total;
     return data;
+  }
+
+  @override
+  fromJson(Map<dynamic, dynamic> json) {
+    return Categories.fromJson(json);
   }
 }
 

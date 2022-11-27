@@ -1,4 +1,6 @@
-class PlaylistModel {
+import 'package:spotify_api/core/base/base_model.dart';
+
+class PlaylistModel extends IBaseModel {
   String? href;
   List<Items>? items;
   int? limit;
@@ -16,7 +18,7 @@ class PlaylistModel {
       this.previous,
       this.total});
 
-  PlaylistModel.fromJson(Map<String, dynamic> json) {
+  PlaylistModel.fromJson(Map<dynamic, dynamic> json) {
     href = json['href'];
     if (json['items'] != null) {
       items = <Items>[];
@@ -43,6 +45,11 @@ class PlaylistModel {
     data['previous'] = this.previous;
     data['total'] = this.total;
     return data;
+  }
+
+  @override
+  fromJson(Map<dynamic, dynamic> json) {
+    return PlaylistModel.fromJson(json);
   }
 }
 

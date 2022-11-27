@@ -1,4 +1,6 @@
-class ArtistAlbum {
+import '../../../core/base/base_model.dart';
+
+class ArtistAlbum extends IBaseModel<ArtistAlbum> {
   String? href;
   List<Items>? items;
   int? limit;
@@ -16,7 +18,7 @@ class ArtistAlbum {
       this.previous,
       this.total});
 
-  ArtistAlbum.fromJson(Map<String, dynamic> json) {
+  ArtistAlbum.fromJson(Map<dynamic, dynamic> json) {
     href = json['href'];
     if (json['items'] != null) {
       items = <Items>[];
@@ -43,6 +45,11 @@ class ArtistAlbum {
     data['previous'] = this.previous;
     data['total'] = this.total;
     return data;
+  }
+
+  @override
+  ArtistAlbum fromJson(Map<dynamic, dynamic> json) {
+    return ArtistAlbum.fromJson(json);
   }
 }
 

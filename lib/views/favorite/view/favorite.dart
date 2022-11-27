@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:shimmer/shimmer.dart';
 import 'package:spotify_api/core/base/base_loading.dart';
 import 'package:spotify_api/core/constans/colors.dart';
 import 'package:spotify_api/utils/extensions/time_converter.dart';
@@ -349,7 +348,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                             width: 130,
                             height: 135,
                             decoration: BoxDecoration(
-                                color: Colors.grey.shade400,
+                                color: Colors.grey.shade300,
                                 borderRadius: BorderRadius.circular(30)),
                             child: ClipRRect(
                                 borderRadius: BorderRadius.circular(30),
@@ -362,7 +361,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                       Widget child,
                                       ImageChunkEvent? loadingProgress) {
                                     if (loadingProgress == null) return child;
-                                    return Center(
+                                    return const Center(
                                       child: CircularProgressIndicator(
                                         color: AppColors.green,
                                       ),
@@ -457,7 +456,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                   style: GoogleFonts.roboto(
                                       fontWeight: FontWeight.normal,
                                       fontSize: 13,
-                                      color: Color(0xff393939))),
+                                      color: const Color(0xff393939))),
                             ])),
                       ),
                     ],
@@ -477,15 +476,28 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                       height: 240,
                       // ignore: prefer_const_constructors
                       decoration: BoxDecoration(
-                          image: DecorationImage(
-                              image: NetworkImage(value
-                                  .artistWithId!.artists![0].images![0].url
-                                  .toString()),
-                              fit: BoxFit.cover),
                           color: Colors.transparent,
                           borderRadius: const BorderRadius.only(
                               bottomLeft: Radius.circular(69),
                               bottomRight: Radius.circular(69))),
+                      child: ClipRRect(
+                          borderRadius: const BorderRadius.only(
+                              bottomLeft: Radius.circular(69),
+                              bottomRight: Radius.circular(69)),
+                          child: Image.network(
+                            value.artistWithId!.artists![0].images![0].url
+                                .toString(),
+                            fit: BoxFit.cover,
+                            loadingBuilder: (BuildContext context, Widget child,
+                                ImageChunkEvent? loadingProgress) {
+                              if (loadingProgress == null) return child;
+                              return const Center(
+                                child: CircularProgressIndicator(
+                                  color: AppColors.green,
+                                ),
+                              );
+                            },
+                          )),
                     ),
                     Positioned(
                       top: 40,

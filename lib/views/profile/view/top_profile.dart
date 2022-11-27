@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:spotify_api/utils/helpers/text_styles.dart';
 
+import '../../../core/constans/colors.dart';
+
 class TopProfile extends StatelessWidget {
   final String imagePath;
   final String email;
@@ -71,12 +73,27 @@ class TopProfile extends StatelessWidget {
                 height: 10.h,
                 width: 10.h,
                 decoration: profilePhoto("$imagePath", 50),
+                child: ClipRRect(
+                    borderRadius: BorderRadius.circular(50),
+                    child: Image.network(
+                      imagePath,
+                      fit: BoxFit.cover,
+                      loadingBuilder: (BuildContext context, Widget child,
+                          ImageChunkEvent? loadingProgress) {
+                        if (loadingProgress == null) return child;
+                        return const Center(
+                          child: CircularProgressIndicator(
+                            color: AppColors.green,
+                          ),
+                        );
+                      },
+                    )),
               ),
               SizedBox(
                 height: 1.5.h,
               ),
               Text(
-                "${email??'xramazanaksoy@gmail.com'}",
+                "${email ?? 'xramazanaksoy@gmail.com'}",
                 style: Styles.bodyStyle(),
               ),
               SizedBox(
@@ -127,8 +144,7 @@ class TopProfile extends StatelessWidget {
 
   BoxDecoration profilePhoto(String path, double radius) {
     return BoxDecoration(
-      color: Colors.black,
-      image: DecorationImage(image: NetworkImage(path), fit: BoxFit.cover),
+      color: Colors.grey.shade300,
       borderRadius: BorderRadius.circular(radius),
     );
   }

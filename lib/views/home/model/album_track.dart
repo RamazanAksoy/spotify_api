@@ -1,4 +1,6 @@
-class AlbumTracks {
+import 'package:spotify_api/core/base/base_model.dart';
+
+class AlbumTracks extends IBaseModel {
   String? href;
   List<Items>? items;
   int? limit;
@@ -16,7 +18,7 @@ class AlbumTracks {
       this.previous,
       this.total});
 
-  AlbumTracks.fromJson(Map<String, dynamic> json) {
+  AlbumTracks.fromJson(Map<dynamic, dynamic> json) {
     href = json['href'];
     if (json['items'] != null) {
       items = <Items>[];
@@ -43,6 +45,11 @@ class AlbumTracks {
     data['previous'] = this.previous;
     data['total'] = this.total;
     return data;
+  }
+
+  @override
+  fromJson(Map<dynamic, dynamic> json) {
+    return AlbumTracks.fromJson(json);
   }
 }
 

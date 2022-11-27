@@ -1,5 +1,4 @@
-import 'package:dio/dio.dart';
-import 'package:spotify_api/core/constans/app.dart';
+import 'package:spotify_api/core/base/base_service.dart';
 import 'package:spotify_api/views/favorite/model/artist_top_track.dart';
 import 'package:spotify_api/views/home/model/album_track.dart';
 import 'package:spotify_api/views/home/model/new_releases_album.dart';
@@ -8,22 +7,14 @@ import 'package:spotify_api/views/home/model/several_artist.dart';
 
 import '../model/categories.dart';
 
-class HomeServices {
-  Dio dio = Dio(BaseOptions(baseUrl: App.baseUrl));
-
+class HomeServices extends BaseService {
   Future<SeveralArtist?> getSeveralArtistData() async {
     var params = {
       'ids':
           '2CIMQHirSU0MQqyYHq0eOx,57dN52uHvrHOxijzpIgu3E,1vCWHaC5f2uS3yhpwWbIA6',
     };
-    try {
-      final response = await dio.get("artists",
-          queryParameters: params,
-          options: Options(headers: App.requestHeaders));
-      final categoriesList = SeveralArtist.fromJson(response.data);
-      return categoriesList;
-    } catch (e) {}
-    return null;
+    return await fetch<SeveralArtist>("artists",
+        model: SeveralArtist(), queryParameters: params);
   }
 
   Future<PodcastModel?> getPodcastData() async {
@@ -31,13 +22,9 @@ class HomeServices {
       'ids': '77o6BIVlYM3msb4MMIL1jH,0Q86acNRm6V9GYx55SXKwf',
       'market': 'TR',
     };
-    try {
-      final response = await dio.get("episodes",
-          queryParameters: params,
-          options: Options(headers: App.requestHeaders));
-      return PodcastModel.fromJson(response.data);
-    } catch (e) {}
-    return null;
+
+    return await fetch<PodcastModel>("episodes",
+        model: PodcastModel(), queryParameters: params);
   }
 
   Future<AlbumTracks?> getAlbumTrackData({String? albumId}) async {
@@ -46,29 +33,21 @@ class HomeServices {
       'limit': '10',
       'offset': '0',
     };
-    try {
-      final response = await dio.get(
-          "albums/${albumId ?? '151w1FgRZfnKZA9FEcg9Z3'}/tracks",
-          queryParameters: params,
-          options: Options(headers: App.requestHeaders));
-      return AlbumTracks.fromJson(response.data);
-    } catch (e) {}
-    return null;
+
+    return await fetch<AlbumTracks>(
+        "albums/${albumId ?? '151w1FgRZfnKZA9FEcg9Z3'}/tracks",
+        model: AlbumTracks(),
+        queryParameters: params);
   }
 
   Future<ArtistTopTracks?> getArtistIdWithData({String? id}) async {
     var params = {
       'market': 'ES',
     };
-    try {
-      final response = await dio.get(
-          "artists/${id ?? '0TnOYISbd1XYRBk9myaseg'}/top-tracks",
-          queryParameters: params,
-          options: Options(headers: App.requestHeaders));
-      final categoriesList = ArtistTopTracks.fromJson(response.data);
-      return categoriesList;
-    } catch (e) {}
-    return null;
+    return await fetch<ArtistTopTracks>(
+        "artists/${id ?? '0TnOYISbd1XYRBk9myaseg'}/top-tracks",
+        model: ArtistTopTracks(),
+        queryParameters: params);
   }
 
   Future<NewReleasesAlbum?> getNewReleaseAlbumData() async {
@@ -77,47 +56,24 @@ class HomeServices {
       'limit': '20',
       'offset': '0',
     };
-    try {
-      final response = await dio.get("browse/new-releases",
-          queryParameters: params,
-          options: Options(headers: App.requestHeaders));
-      final categoriesList = NewReleasesAlbum.fromJson(response.data);
-      return categoriesList;
-    } catch (e) {}
-    return null;
+
+    return await fetch<NewReleasesAlbum>("browse/new-releases",
+        model: NewReleasesAlbum(), queryParameters: params);
   }
 
   Future<CategoriesModel?> getCategoriesData() async {
-    try {
-      final response = await dio.get("browse/categories",
-          queryParameters: {
-            'country': 'TR',
-            'locale': 'TR-tr',
-          },
-          options: Options(headers: App.requestHeaders));
-      final categoriesList = CategoriesModel.fromJson(response.data);
-      return categoriesList;
-    } catch (e) {}
-    return null;
+    return await fetch<CategoriesModel>("browse/categories",
+        model: CategoriesModel(),
+        queryParameters: {
+          'country': 'TR',
+          'locale': 'TR-tr',
+        });
   }
 
   Future<List<Categories>?> getCategoriesDetailsData(
     String id,
   ) async {
-    try {
-      final response = await dio.get("browse/categories/$id/tracks",
-          queryParameters: {
-            'country': 'TR',
-            'locale': 'TR-tr',
-          },
-          options: Options(headers: App.requestHeaders));
-
-      List<dynamic> aa = response.data["categories"]["items"];
-
-      List<Categories> categoriesList =
-          aa.map((user) => Categories.fromJson(user)).toList();
-      return categoriesList;
-    } catch (e) {}
-    return null;
+    return await fetch<Categories>("browse/categories/$id/tracks",
+        model: Categories());
   }
 }
