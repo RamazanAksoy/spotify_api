@@ -5,5 +5,6 @@ spotify developer token : BQC8cC6k-j2I4jLbncHKBApP8guntsj0nTCtG_1RMOktQq0NBDQ0wo
 You can change the token in core/constans/app by creating your own token at https://developer.spotify.com/console/
 
 
-https://user-images.githubusercontent.com/61667679/204108545-7b9a145b-4d61-497c-9803-83075cac95e2.mp4
+
+https://user-images.githubusercontent.com/61667679/204109193-ae019054-188c-4ebf-820c-793449d4fe18.mp4
 
