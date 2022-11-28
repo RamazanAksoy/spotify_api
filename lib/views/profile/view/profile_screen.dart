@@ -150,67 +150,69 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
   Widget currentWidget(){
-    return Column(
-
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SizedBox(height: 2.h),
-        Consumer(
-          builder: (BuildContext context, ProfileViewModel value, widget) {
-            return value.isLoadingProfile == false
-                ? TopProfile(
-                imagePath: value.profile!.images![0].url!,
-                email: '${value.profile!.email??'xburakseker@gmail.com'}',
-                profileName: "${value.profile!.displayName}",
-                takipEdilenSayisi:value.profile!.followers!.total!.toInt(),
-                takipciSayisi: 300)
-                :  Container();
-          },
-        ),
-        Padding(
-          padding: EdgeInsets.only(left: 7.w, top: 3.h),
-          child: Text(
-            "PUBLIC PLAYLIST",
-            style: Styles.titleStyle(),
+    return SingleChildScrollView(
+      physics: BouncingScrollPhysics(),
+      child: Column(
+    
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(height: 2.h),
+          Consumer(
+            builder: (BuildContext context, ProfileViewModel value, widget) {
+              return value.isLoadingProfile == false
+                  ? TopProfile(
+                  imagePath: value.profile!.images![0].url!,
+                  email: '${value.profile!.email??'xburakseker@gmail.com'}',
+                  profileName: "${value.profile!.displayName}",
+                  takipEdilenSayisi:value.profile!.followers!.total!.toInt(),
+                  takipciSayisi: 300)
+                  :  Container();
+            },
           ),
-        ),
-        SizedBox(
-          height: 1.h,
-        ),
-        SizedBox(
-          height: 48.55.h,
-          width: double.infinity,
-          child: MediaQuery.removePadding(
-            context: context,
-            removeTop: true,
-            child: Consumer(
-              builder: (context, ProfileViewModel value, child) {
-                return value.isLoadingUserPlayList == false
-                    ? ListView.builder(
-                  physics: const BouncingScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: value.userPlayList!.items!.length,
-                  itemBuilder: (context, index) {
-                    return Playlist(
-                      imagePath: value.userPlayList!.items![index]
-                          .images!.isEmpty ==
-                          false
-                          ? '${value.userPlayList!.items![index].images![0].url}'
-                          : "https://p1.hiclipart.com/preview/658/470/455/krzp-dock-icons-v-1-2-empty-grey-empty-text-png-clipart.jpg",
-                      songName:
-                      '${value.userPlayList!.items![index].name}',
-                      artistName:
-                      '${value.userPlayList!.items![index].owner!.displayName}',
-                      trackTotal: value.userPlayList!.items![index].tracks!.total.toString(),
-                    );
-                  },
-                )
-                    : Container();
-              },
+          Padding(
+            padding: EdgeInsets.only(left: 7.w, top: 3.h),
+            child: Text(
+              "PUBLIC PLAYLIST",
+              style: Styles.titleStyle(),
             ),
           ),
-        )
-      ],
+          SizedBox(
+            height: 1.h,
+          ),
+          SizedBox(
+            width: double.infinity,
+            child: MediaQuery.removePadding(
+              context: context,
+              removeTop: true,
+              child: Consumer(
+                builder: (context, ProfileViewModel value, child) {
+                  return value.isLoadingUserPlayList == false
+                      ? ListView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: value.userPlayList!.items!.length,
+                    itemBuilder: (context, index) {
+                      return Playlist(
+                        imagePath: value.userPlayList!.items![index]
+                            .images!.isEmpty ==
+                            false
+                            ? '${value.userPlayList!.items![index].images![0].url}'
+                            : "https://p1.hiclipart.com/preview/658/470/455/krzp-dock-icons-v-1-2-empty-grey-empty-text-png-clipart.jpg",
+                        songName:
+                        '${value.userPlayList!.items![index].name}',
+                        artistName:
+                        '${value.userPlayList!.items![index].owner!.displayName}',
+                        trackTotal: value.userPlayList!.items![index].tracks!.total.toString(),
+                      );
+                    },
+                  )
+                      : Container();
+                },
+              ),
+            ),
+          )
+        ],
+      ),
     );
   }
 }

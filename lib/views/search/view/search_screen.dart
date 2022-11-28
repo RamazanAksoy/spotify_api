@@ -7,6 +7,7 @@ import 'package:spotify_api/core/base/base_loading.dart';
 import 'package:spotify_api/core/constans/colors.dart';
 import 'package:spotify_api/utils/helpers/text_styles.dart';
 import 'package:spotify_api/views/search/model-view/search_model_view.dart';
+import 'package:spotify_api/views/search/view/grid.dart';
 
 import '../../favorite/view/favorite.dart';
 
@@ -19,6 +20,12 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen> {
   final TextEditingController _textEditingController = TextEditingController();
+
+  @override
+  void initState() {
+    Provider.of<SearchViewModel>(context,listen: false).getCategories();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     var padding = MediaQuery.of(context).padding;
@@ -44,7 +51,7 @@ class _SearchScreenState extends State<SearchScreen> {
             Consumer(
               builder: (context, SearchViewModel value, child) =>
                   value.textLengthController
-                      ? Container()
+                      ? const GridCategories()
                       : BaseLoadingShimmer(
                           loadingWidget: ArtistAndSongsLoadingWidget(),
                           currentWidget: ArtistAndSongsCurrentWidget(),
@@ -135,6 +142,7 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget ArtistAndSongsCurrentWidget() {
     return Column(
       children: [
+        
         searchArtisList(),
         SizedBox(
           height: 3.h,
@@ -149,6 +157,8 @@ class _SearchScreenState extends State<SearchScreen> {
       builder: (context, SearchViewModel value, child) => value.isLoadingSearch
           ? Container()
           : Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+
               children: [
                 Text("Songs",
                     style: Styles.titleStyle(
@@ -205,15 +215,18 @@ class _SearchScreenState extends State<SearchScreen> {
       builder: (context, SearchViewModel value, child) => value.isLoadingSearch
           ? Container()
           : Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text("Artists",
                     style: Styles.titleStyle(
                         fontSize: 17.sp, color: Colors.black87)),
                 SizedBox(
                   width: 100.w,
+                  height: 10.h,
                   child: ListView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
+                    
                     padding: EdgeInsets.only(top: 1.h),
+                    scrollDirection: Axis.horizontal,
                     itemCount: value.searchModel!.artists!.items!.length,
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
@@ -241,7 +254,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                 ),
                               ],
                               borderRadius: BorderRadius.circular(2.w)),
-                          margin: EdgeInsets.only(bottom: 1.h),
+                          margin: EdgeInsets.only(bottom: 1.h,right: 5.w),
                           child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -264,7 +277,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                                     .items![index]
                                                     .images!
                                                     .isEmpty
-                                                ? ""
+                                                ? "https://www.artranked.com/images/73/733071bb13f55c6307aa227300c4af73.jpg"
                                                 : value
                                                     .searchModel!
                                                     .artists!
@@ -300,7 +313,6 @@ class _SearchScreenState extends State<SearchScreen> {
                                     )
                                   ],
                                 ),
-                                const Icon(Icons.keyboard_arrow_right_outlined)
                               ]),
                         ),
                       );

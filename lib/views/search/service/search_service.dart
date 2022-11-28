@@ -1,5 +1,6 @@
 import 'package:spotify_api/views/search/model/searchmodel.dart';
 import '../../../core/base/base_service.dart';
+import '../../home/model/categories.dart';
 
 class SearchService extends BaseService {
   Future<SearchModel?> getSearchData(
@@ -19,4 +20,14 @@ class SearchService extends BaseService {
     return await fetch<SearchModel>("search",
         model: SearchModel(), queryParameters: params);
   }
+
+    Future<CategoriesModel?> getCategoriesData() async {
+    return await fetch<CategoriesModel>("browse/categories",
+        model: CategoriesModel(),
+        queryParameters: {
+          'country': 'TR',
+          'locale': 'TR-tr',
+        });
+  }
+
 }

@@ -9,7 +9,6 @@ class BaseService {
 
   Future<dynamic> fetch<T extends IBaseModel>(String path,
       {IBaseModel? model, Map<String, dynamic>? queryParameters}) async {
-    //  final response = await http.get(Uri(path: "$baseUrl/$path"));
 
     final response = await dio.get(path, queryParameters: queryParameters);
 

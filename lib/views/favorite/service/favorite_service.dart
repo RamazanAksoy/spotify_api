@@ -9,8 +9,10 @@ class FavoriteServices extends BaseService {
       'ids': artistId ?? '0TnOYISbd1XYRBk9myaseg',
     };
 
+
     return await fetch<ArtistWithId>("artists",
         model: ArtistWithId(), queryParameters: params);
+
   }
 
   Future<ArtistAlbum?> getArtistAlbumData({String? artistId}) async {
