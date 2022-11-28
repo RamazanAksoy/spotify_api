@@ -15,7 +15,7 @@ class GridCategories extends StatelessWidget {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Categories",style:Styles.titleStyle(fontSize: 18.sp),),
+            Text("Categories",style:Styles.titleStyle(fontSize: 17.sp),),
             Container(
               width: 100.w,
               child: value.isLoadingCategories == false
